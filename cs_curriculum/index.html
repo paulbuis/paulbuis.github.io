@@ -1,0 +1,2132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Prerequisite Dependency Graphs</title>
+<script>
+  function removeTitles(svgGArray) {
+    var i;
+    for (i=0; i<svgGArray.length; i++) {
+      svgG = svgGArray[i]; 
+      titles = svgG.getElementsByTagName("title")
+      if (titles) {
+        title = titles[0];
+        if (title) {
+           svgG.removeChild(title);
+        }
+      }
+    }
+  }
+
+  function replaceTitleWithOnClick(svgGArray) {
+    var i;
+    for (i=0; i<svgGArray.length; i++) {
+      svgG = svgGArray[i];
+      titles = svgG.getElementsByTagName("title")
+      if (titles) {
+        title = titles[0];
+        if (title) {
+          var dialogID = title.innerHTML;
+          dialog = document.getElementById(dialogID);
+          if (dialog) {
+            svgG.setAttribute("onclick", "$('#" + dialogID + "').modal('show')")
+          }
+          svgG.removeChild(title);
+        }
+      }
+    }
+  }
+
+  function init(dotFile) {
+    graphDiv = document.getElementById("graph");
+    var fetchResponsePromise = window.fetch(dotFile, {cache:"no-store"});
+
+    var graphVizStringPromise =  fetchResponsePromise.then(function (fetchResponse) {
+        if (!fetchResponse.ok) {
+            graphDiv.innerHTML = "Fetch Failed";
+            return new Promise(function(result){}, function(err){});
+        }
+        return fetchResponse.text();
+    });
+
+
+
+    graphVizStringPromise.then(function (graphVizString) {
+        var svgXml = Viz(graphVizString, {format: "svg"});
+        graphDiv.innerHTML = svgXml;
+        setTimeout(function(){
+            var svgdiv = graphDiv;
+            var svg = svgdiv.firstElementChild;
+            svg.removeAttribute("height");
+            svg.setAttribute("width", "100%");
+            var graphElements = svg.getElementsByClassName("graph");
+            removeTitles(graphElements);
+            var clusterElements = svg.getElementsByClassName("cluster");
+            removeTitles(clusterElements);
+            var nodeElements = svg.getElementsByClassName("node");
+            replaceTitleWithOnClick(nodeElements);
+            var edgeElements = svg.getElementsByClassName("edge");
+            removeTitles(edgeElements);
+        }, 100);
+    });
+}
+
+</script>
+</head>
+<body>
+<h1>Prerequisite Dependency Graphs of proposed CS major concentrations</h1>
+
+See <a href="">Paul Gestwicki's GitHub repository</a> for the text of the proposal.
+
+<h2>Proposed CS Major Core</h2>
+
+These courses are required on all CS major concentrations.
+
+<svg 
+ viewBox="0.00 0.00 983.00 824.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 820)">
+<title>CSmajorCore</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-820 979,-820 979,4 -4,4"/>
+<g id="clust5" class="cluster">
+<title>cluster_softeng</title>
+<polygon fill="none" stroke="black" stroke-width="2" points="228,-8 228,-235 452,-235 452,-8 228,-8"/>
+<text text-anchor="middle" x="340" y="-218.2" font-family="Arial" font-size="16.00">Senior Capstone Sequence</text>
+</g>
+<!-- CS120 -->
+<g id="node1" class="node">
+<title>CS120</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="180,-773 74,-773 74,-681 180,-681 180,-773"/>
+<text text-anchor="start" x="100" y="-757.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 120</text>
+<text text-anchor="start" x="93" y="-732.2" font-family="Arial" font-size="16.00">Computer</text>
+<text text-anchor="start" x="91.5" y="-714.2" font-family="Arial" font-size="16.00">Science 1</text>
+<text text-anchor="start" x="78" y="-691.2" font-family="Arial" font-style="italic" font-size="16.00">4 credit hours</text>
+</g>
+<!-- CS121 -->
+<g id="node5" class="node">
+<title>CS121</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="106,-632 0,-632 0,-540 106,-540 106,-632"/>
+<text text-anchor="start" x="26" y="-616.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 121</text>
+<text text-anchor="start" x="19" y="-591.2" font-family="Arial" font-size="16.00">Computer</text>
+<text text-anchor="start" x="17.5" y="-573.2" font-family="Arial" font-size="16.00">Science 2</text>
+<text text-anchor="start" x="4" y="-550.2" font-family="Arial" font-style="italic" font-size="16.00">4 credit hours</text>
+</g>
+<!-- CS120&#45;&gt;CS121 -->
+<g id="edge1" class="edge">
+<title>CS120&#45;&gt;CS121</title>
+<path fill="none" stroke="black" stroke-width="2" d="M102.97,-680.87C96.25,-668.25 88.88,-654.39 81.91,-641.3"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="84.95,-639.56 77.16,-632.38 78.77,-642.85 84.95,-639.56"/>
+</g>
+<!-- CS124 -->
+<g id="node6" class="node">
+<title>CS124</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="205.5,-620 124.5,-620 124.5,-552 205.5,-552 205.5,-620"/>
+<text text-anchor="start" x="138.5" y="-604.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 124</text>
+<text text-anchor="start" x="135.5" y="-579.2" font-family="Arial" font-size="16.00">Discrete</text>
+<text text-anchor="start" x="129" y="-561.2" font-family="Arial" font-size="16.00">Structures</text>
+</g>
+<!-- CS120&#45;&gt;CS124 -->
+<g id="edge2" class="edge">
+<title>CS120&#45;&gt;CS124</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="5,2" d="M139.34,-680.87C143.82,-664.46 148.88,-645.97 153.31,-629.77"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="156.71,-630.59 155.97,-620.02 149.96,-628.74 156.71,-630.59"/>
+<text text-anchor="middle" x="194" y="-653.4" font-family="Arial" font-size="12.00"> prereq or parallel</text>
+<polyline fill="none" stroke="black" points="240,-650 148,-650 149.34,-644.29 "/>
+</g>
+<!-- HIST150 -->
+<g id="node2" class="node">
+<title>HIST150</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="446.5,-761 353.5,-761 353.5,-693 446.5,-693 446.5,-761"/>
+<text text-anchor="start" x="367" y="-745.2" font-family="Arial" font-weight="bold" font-size="16.00">HIST 150</text>
+<text text-anchor="start" x="358" y="-720.2" font-family="Arial" font-size="16.00">The West in</text>
+<text text-anchor="start" x="366.5" y="-702.2" font-family="Arial" font-size="16.00">the World</text>
+</g>
+<!-- UCCPFW -->
+<g id="node3" class="node">
+<title>UCCPFW</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="611.5,-759 464.5,-759 464.5,-695 611.5,-695 611.5,-759"/>
+<text text-anchor="start" x="506.5" y="-743.2" font-family="Arial" font-weight="bold" font-size="16.00">Physcial</text>
+<text text-anchor="start" x="469" y="-727.2" font-family="Arial" font-weight="bold" font-size="16.00">Fitness / Wellness</text>
+<text text-anchor="start" x="489.5" y="-705.2" font-family="Arial" font-style="italic" font-size="16.00">2 credit hours</text>
+</g>
+<!-- ENG103 -->
+<g id="node4" class="node">
+<title>ENG103</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="335.5,-752 198.5,-752 198.5,-702 335.5,-702 335.5,-752"/>
+<text text-anchor="start" x="235" y="-736.2" font-family="Arial" font-weight="bold" font-size="16.00">ENG 103</text>
+<text text-anchor="start" x="203" y="-711.2" font-family="Arial" font-size="16.00">Rhetoric &amp; Writing</text>
+</g>
+<!-- ENG104 -->
+<g id="node7" class="node">
+<title>ENG104</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="310.5,-627 223.5,-627 223.5,-545 310.5,-545 310.5,-627"/>
+<text text-anchor="start" x="235" y="-611.2" font-family="Arial" font-weight="bold" font-size="16.00">ENG 104</text>
+<text text-anchor="start" x="244" y="-595.2" font-family="Arial" font-size="16.00">or </text>
+<text text-anchor="start" x="263" y="-595.2" font-family="Arial" font-weight="bold" font-size="16.00">114</text>
+<text text-anchor="start" x="228" y="-572.2" font-family="Arial" font-size="16.00">Composing</text>
+<text text-anchor="start" x="233" y="-554.2" font-family="Arial" font-size="16.00">Research</text>
+</g>
+<!-- ENG103&#45;&gt;ENG104 -->
+<g id="edge9" class="edge">
+<title>ENG103&#45;&gt;ENG104</title>
+<path fill="none" stroke="black" stroke-width="2" d="M267,-701.79C267,-684.06 267,-659.37 267,-637.43"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="270.5,-637.25 267,-627.25 263.5,-637.25 270.5,-637.25"/>
+</g>
+<!-- CS222 -->
+<g id="node11" class="node">
+<title>CS222</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="305,-491 193,-491 193,-423 305,-423 305,-491"/>
+<text text-anchor="start" x="222" y="-475.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 222</text>
+<text text-anchor="start" x="214" y="-450.2" font-family="Arial" font-size="16.00">Advanced</text>
+<text text-anchor="start" x="203" y="-432.2" font-family="Arial" font-size="16.00">Programming</text>
+</g>
+<!-- CS121&#45;&gt;CS222 -->
+<g id="edge7" class="edge">
+<title>CS121&#45;&gt;CS222:cs222_top</title>
+<path fill="none" stroke="black" stroke-width="2" d="M106.18,-545.04C109.12,-543.27 112.07,-541.57 115,-540 126.98,-533.57 216.53,-513.18 242.16,-497.47"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="244.83,-499.74 249,-490 239.67,-495.01 244.83,-499.74"/>
+</g>
+<!-- CS224 -->
+<g id="node12" class="node">
+<title>CS224</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="136.5,-482 43.5,-482 43.5,-432 136.5,-432 136.5,-482"/>
+<text text-anchor="start" x="63.5" y="-466.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 224</text>
+<text text-anchor="start" x="54" y="-441.2" font-family="Arial" font-size="16.00">Algorithms</text>
+</g>
+<!-- CS121&#45;&gt;CS224 -->
+<g id="edge4" class="edge">
+<title>CS121&#45;&gt;CS224:cs224_top</title>
+<path fill="none" stroke="black" stroke-width="2" d="M71.11,-539.9C78.14,-521.86 85.34,-502.6 88.83,-490.84"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="92.27,-491.52 91,-481 85.43,-490.01 92.27,-491.52"/>
+</g>
+<!-- CS230 -->
+<g id="node16" class="node">
+<title>CS230</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="133.5,-360 22.5,-360 22.5,-274 133.5,-274 133.5,-360"/>
+<text text-anchor="start" x="51.5" y="-344.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 230</text>
+<text text-anchor="start" x="44.5" y="-319.2" font-family="Arial" font-size="16.00">Computer</text>
+<text text-anchor="start" x="27" y="-301.2" font-family="Arial" font-size="16.00">Organization &amp;</text>
+<text text-anchor="start" x="36" y="-283.2" font-family="Arial" font-size="16.00">Architecture</text>
+</g>
+<!-- CS121&#45;&gt;CS230 -->
+<g id="edge3" class="edge">
+<title>CS121&#45;&gt;CS230</title>
+<path fill="none" stroke="black" stroke-width="2" d="M40.18,-540C32.69,-507.31 26.13,-462.14 34,-423 37.61,-405.02 44.39,-386.28 51.56,-369.69"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="54.92,-370.75 55.8,-360.2 48.53,-367.9 54.92,-370.75"/>
+</g>
+<!-- CS124&#45;&gt;CS222 -->
+<g id="edge8" class="edge">
+<title>CS124&#45;&gt;CS222:cs222_top</title>
+<path fill="none" stroke="black" stroke-width="2" d="M198.2,-551.9C215.99,-533.64 235.99,-512.12 244.64,-499.27"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="247.91,-500.54 249,-490 241.57,-497.56 247.91,-500.54"/>
+</g>
+<!-- CS124&#45;&gt;CS224 -->
+<g id="edge5" class="edge">
+<title>CS124&#45;&gt;CS224:cs224_top</title>
+<path fill="none" stroke="black" stroke-width="2" d="M125.4,-551.57C110.01,-535.25 95.21,-514.16 91.76,-491.03"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="95.24,-490.71 91,-481 88.26,-491.23 95.24,-490.71"/>
+</g>
+<!-- CS124&#45;&gt;CS230 -->
+<g id="edge6" class="edge">
+<title>CS124&#45;&gt;CS230</title>
+<path fill="none" stroke="black" stroke-width="2" d="M165.15,-551.74C164.33,-518.28 160.35,-465.66 145,-423 138.2,-404.11 127.53,-385.12 116.68,-368.58"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="119.5,-366.5 111.01,-360.17 113.7,-370.41 119.5,-366.5"/>
+</g>
+<!-- ENG104&#45;&gt;CS222 -->
+<g id="edge10" class="edge">
+<title>ENG104&#45;&gt;CS222</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="5,2" d="M261.3,-544.82C259.33,-530.9 257.11,-515.25 255.11,-501.1"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="258.56,-500.53 253.69,-491.12 251.63,-501.51 258.56,-500.53"/>
+<text text-anchor="middle" x="304" y="-512.4" font-family="Arial" font-size="12.00"> prereq or parallel</text>
+<polyline fill="none" stroke="black" points="350,-509 258,-509 258.12,-522.35 "/>
+</g>
+<!-- UCCT1NS -->
+<g id="node8" class="node">
+<title>UCCT1NS</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="680,-630 554,-630 554,-542 680,-542 680,-630"/>
+<text text-anchor="start" x="595.5" y="-614.2" font-family="Arial" font-weight="bold" font-size="16.00">Tier 1</text>
+<text text-anchor="start" x="558" y="-598.2" font-family="Arial" font-weight="bold" font-size="16.00">Natural Science</text>
+<text text-anchor="start" x="559" y="-576.2" font-family="Arial" font-style="italic" font-size="16.00">CS Lab Science</text>
+<text text-anchor="start" x="559" y="-552.2" font-family="Arial" font-style="italic" font-size="16.00">3–5 credit hours</text>
+</g>
+<!-- UCCT2NSS -->
+<g id="node19" class="node">
+<title>UCCT2NSS</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="725.5,-345 594.5,-345 594.5,-289 725.5,-289 725.5,-345"/>
+<text text-anchor="start" x="639" y="-329.2" font-family="Arial" font-weight="bold" font-size="16.00">Tier 2</text>
+<text text-anchor="start" x="623.5" y="-313.2" font-family="Arial" font-weight="bold" font-size="16.00">Natural or</text>
+<text text-anchor="start" x="605" y="-297.2" font-family="Arial" font-weight="bold" font-size="16.00">Social Science</text>
+</g>
+<!-- UCCT1NS&#45;&gt;UCCT2NSS -->
+<g id="edge14" class="edge">
+<title>UCCT1NS&#45;&gt;UCCT2NSS:ucct2nss_top</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="1,5" d="M620.31,-541.69C623.3,-508.87 628.57,-462.78 637,-423 643.84,-390.75 657.76,-382.3 660.52,-354.31"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="664.03,-354.15 661,-344 657.04,-353.83 664.03,-354.15"/>
+</g>
+<!-- UCCPFIN -->
+<g id="node9" class="node">
+<title>UCCPFIN</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="796,-618 698,-618 698,-554 796,-554 796,-618"/>
+<text text-anchor="start" x="713.5" y="-602.2" font-family="Arial" font-weight="bold" font-size="16.00">Personal</text>
+<text text-anchor="start" x="716.5" y="-586.2" font-family="Arial" font-weight="bold" font-size="16.00">Finance</text>
+<text text-anchor="start" x="702" y="-564.2" font-family="Arial" font-style="italic" font-size="16.00">1 credit hour</text>
+</g>
+<!-- MATH181 -->
+<g id="node10" class="node">
+<title>MATH181</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="911.5,-629 814.5,-629 814.5,-543 911.5,-543 911.5,-629"/>
+<text text-anchor="start" x="825.5" y="-613.2" font-family="Arial" font-weight="bold" font-size="16.00">MATH 181</text>
+<text text-anchor="start" x="824" y="-588.2" font-family="Arial" font-size="16.00">Elementary</text>
+<text text-anchor="start" x="819" y="-570.2" font-family="Arial" font-size="16.00">Probability &amp;</text>
+<text text-anchor="start" x="830.5" y="-552.2" font-family="Arial" font-size="16.00">Statistics</text>
+</g>
+<!-- CS239 -->
+<g id="node17" class="node">
+<title>CS239</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="576,-372 478,-372 478,-262 576,-262 576,-372"/>
+<text text-anchor="start" x="500" y="-356.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 239</text>
+<text text-anchor="start" x="497.5" y="-331.2" font-family="Arial" font-size="16.00">Social &amp;</text>
+<text text-anchor="start" x="483" y="-313.2" font-family="Arial" font-size="16.00">Professional</text>
+<text text-anchor="start" x="503.5" y="-295.2" font-family="Arial" font-size="16.00">Issues</text>
+<text text-anchor="start" x="482" y="-272.2" font-family="Arial" font-style="italic" font-size="16.00">1 credit hour</text>
+</g>
+<!-- CS222&#45;&gt;CS239 -->
+<g id="edge11" class="edge">
+<title>CS222&#45;&gt;CS239</title>
+<path fill="none" stroke="black" stroke-width="2" d="M305.08,-441.13C351.25,-427.39 417.3,-404.21 469,-372 469.09,-371.94 469.18,-371.89 469.27,-371.83"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="471.38,-374.63 477.68,-366.11 467.44,-368.84 471.38,-374.63"/>
+</g>
+<!-- CS495 -->
+<g id="node22" class="node">
+<title>CS495</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="426,-201 254,-201 254,-127 426,-127 426,-201"/>
+<text text-anchor="start" x="313" y="-185.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 495</text>
+<text text-anchor="start" x="258" y="-160.2" font-family="Arial" font-size="16.00">Software Engineering 1</text>
+<text text-anchor="start" x="279" y="-137.2" font-family="Arial" font-style="italic" font-size="16.00">BSU Core: Tier 3</text>
+</g>
+<!-- CS222&#45;&gt;CS495 -->
+<g id="edge16" class="edge">
+<title>CS222&#45;&gt;CS495</title>
+<path fill="none" stroke="black" stroke-width="2" d="M234.77,-422.75C219.89,-382.72 201.81,-314.34 226,-262 235.83,-240.73 252.88,-222.4 270.85,-207.59"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="273.47,-209.98 279.15,-201.03 269.13,-204.49 273.47,-209.98"/>
+</g>
+<!-- UCCT1SS -->
+<g id="node13" class="node">
+<title>UCCT1SS</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="764.5,-477 645.5,-477 645.5,-437 764.5,-437 764.5,-477"/>
+<text text-anchor="start" x="684" y="-461.2" font-family="Arial" font-weight="bold" font-size="16.00">Tier 1</text>
+<text text-anchor="start" x="650" y="-445.2" font-family="Arial" font-weight="bold" font-size="16.00">Social Science</text>
+</g>
+<!-- UCCT1SS&#45;&gt;UCCT2NSS -->
+<g id="edge15" class="edge">
+<title>UCCT1SS&#45;&gt;UCCT2NSS:ucct2nss_top</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="1,5" d="M692.27,-436.67C680.55,-417.15 664.52,-385.47 661.5,-354.14"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="664.99,-353.82 661,-344 658,-354.16 664.99,-353.82"/>
+<text text-anchor="middle" x="685.5" y="-393.8" font-family="Arial" font-size="14.00"> &#160;or</text>
+<polyline fill="none" stroke="black" points="696,-390 675,-390 674.45,-401.83 "/>
+</g>
+<!-- UCCT1HU -->
+<g id="node14" class="node">
+<title>UCCT1HU</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="875.5,-477 782.5,-477 782.5,-437 875.5,-437 875.5,-477"/>
+<text text-anchor="start" x="808" y="-461.2" font-family="Arial" font-weight="bold" font-size="16.00">Tier 1</text>
+<text text-anchor="start" x="787" y="-445.2" font-family="Arial" font-weight="bold" font-size="16.00">Humanities</text>
+</g>
+<!-- UCCT2FDH -->
+<g id="node21" class="node">
+<title>UCCT2FDH</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="975,-345 793,-345 793,-289 975,-289 975,-345"/>
+<text text-anchor="start" x="862.5" y="-329.2" font-family="Arial" font-weight="bold" font-size="16.00">Tier 2</text>
+<text text-anchor="start" x="839.5" y="-313.2" font-family="Arial" font-weight="bold" font-size="16.00">Fine Arts or</text>
+<text text-anchor="start" x="803" y="-297.2" font-family="Arial" font-weight="bold" font-size="16.00">Design or Humanities</text>
+</g>
+<!-- UCCT1HU&#45;&gt;UCCT2FDH -->
+<g id="edge13" class="edge">
+<title>UCCT1HU&#45;&gt;UCCT2FDH:ucct2fdh_top</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="1,5" d="M845.2,-436.77C859.91,-417.49 879.82,-386.14 883.43,-353.99"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="886.92,-354.18 884,-344 879.93,-353.78 886.92,-354.18"/>
+</g>
+<!-- UCCT1FA -->
+<g id="node15" class="node">
+<title>UCCT1FA</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="970.5,-477 893.5,-477 893.5,-437 970.5,-437 970.5,-477"/>
+<text text-anchor="start" x="911" y="-461.2" font-family="Arial" font-weight="bold" font-size="16.00">Tier 1</text>
+<text text-anchor="start" x="898" y="-445.2" font-family="Arial" font-weight="bold" font-size="16.00">Fine Arts</text>
+</g>
+<!-- UCCT1FA&#45;&gt;UCCT2FDH -->
+<g id="edge12" class="edge">
+<title>UCCT1FA&#45;&gt;UCCT2FDH:ucct2fdh_top</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="1,5" d="M918.12,-436.84C905.32,-417.44 887.84,-385.88 884.55,-354.25"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="888.03,-353.8 884,-344 881.04,-354.17 888.03,-353.8"/>
+<text text-anchor="middle" x="909.5" y="-393.8" font-family="Arial" font-size="14.00"> &#160;or</text>
+<polyline fill="none" stroke="black" points="920,-390 899,-390 898.67,-402.13 "/>
+</g>
+<!-- CS239&#45;&gt;CS495 -->
+<!-- COMM210 -->
+<g id="node18" class="node">
+<title>COMM210</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="324.5,-351 235.5,-351 235.5,-283 324.5,-283 324.5,-351"/>
+<text text-anchor="start" x="240" y="-335.2" font-family="Arial" font-weight="bold" font-size="16.00">COMM 210</text>
+<text text-anchor="start" x="259" y="-310.2" font-family="Arial" font-size="16.00">Public</text>
+<text text-anchor="start" x="248" y="-292.2" font-family="Arial" font-size="16.00">Speaking</text>
+</g>
+<!-- COMM210&#45;&gt;CS495 -->
+<g id="edge19" class="edge">
+<title>COMM210&#45;&gt;CS495</title>
+<path fill="none" stroke="black" stroke-width="2" d="M293.17,-282.86C301.6,-261.65 312.65,-233.84 321.9,-210.56"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="325.16,-211.82 325.6,-201.23 318.66,-209.23 325.16,-211.82"/>
+</g>
+<!-- Permission -->
+<g id="node20" class="node">
+<title>Permission</title>
+<ellipse fill="none" stroke="blue" stroke-width="2" cx="401" cy="-317" rx="58.88" ry="25.41"/>
+<text text-anchor="middle" x="401" y="-322.2" font-family="Arial" font-size="16.00">Permission:</text>
+<text text-anchor="middle" x="401" y="-304.2" font-family="Arial" font-size="16.00">Final Year</text>
+</g>
+<!-- Permission&#45;&gt;CS495 -->
+<g id="edge18" class="edge">
+<title>Permission&#45;&gt;CS495</title>
+<path fill="none" stroke="black" stroke-width="2" d="M391.2,-291.74C382.38,-269.91 369.19,-237.26 358.41,-210.57"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="361.55,-208.99 354.56,-201.03 355.06,-211.62 361.55,-208.99"/>
+</g>
+<!-- CS498 -->
+<g id="node23" class="node">
+<title>CS498</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="443.5,-90 236.5,-90 236.5,-16 443.5,-16 443.5,-90"/>
+<text text-anchor="start" x="313.5" y="-74.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 498</text>
+<text text-anchor="start" x="258.5" y="-49.2" font-family="Arial" font-size="16.00">Software Engineering 2</text>
+<text text-anchor="start" x="241" y="-26.2" font-family="Arial" font-style="italic" font-size="16.00">BSU Core: Writing Intensive</text>
+</g>
+<!-- CS495&#45;&gt;CS498 -->
+<g id="edge20" class="edge">
+<title>CS495&#45;&gt;CS498</title>
+<path fill="none" stroke="black" stroke-width="2" d="M340,-126.7C340,-118.25 340,-109.13 340,-100.3"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="343.5,-100.14 340,-90.14 336.5,-100.14 343.5,-100.14"/>
+</g>
+</g>
+</svg>
+
+
+<h2>Proposed General CS Concentration</h2>
+
+This program most closely resembles our current Computer Science major.
+
+
+
+
+
+
+
+<svg
+ viewBox="0.00 0.00 1412.50 1080.91" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 1076.91)">
+<title>General_CS</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-1076.91 1408.5,-1076.91 1408.5,4 -4,4"/>
+
+<g id="clust5" class="cluster">
+<title>cluster_softeng</title>
+<polygon fill="none" stroke="black" stroke-width="2" points="434.5,-8 434.5,-235 658.5,-235 658.5,-8 434.5,-8"/>
+<text text-anchor="middle" x="546.5" y="-218.2" font-family="Arial" font-size="16.00">Senior Capstone Sequence</text>
+</g>
+<g id="clust6" class="cluster">
+<title>cluster_math</title>
+<polygon fill="none" stroke="black" stroke-width="2" points="1068.5,-753.91 1068.5,-1010.91 1396.5,-1010.91 1396.5,-753.91 1068.5,-753.91"/>
+<text text-anchor="middle" x="1232.5" y="-994.11" font-family="Arial" font-size="16.00">75% of CS majors do not place into Calculus</text>
+</g>
+<g id="clust7" class="cluster">
+<title>cluster_general_cs</title>
+<polygon fill="none" stroke="black" stroke-width="2" points="64.5,-341.91 64.5,-451.91 566.5,-451.91 566.5,-341.91 64.5,-341.91"/>
+<text text-anchor="middle" x="315.5" y="-435.11" font-family="Arial" font-size="16.00">Required on Concentration</text>
+</g>
+<!-- CS120 -->
+<g id="node1" class="node">
+<title>CS120</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="365.5,-991.91 259.5,-991.91 259.5,-899.91 365.5,-899.91 365.5,-991.91"/>
+<text text-anchor="start" x="285.5" y="-976.11" font-family="Arial" font-weight="bold" font-size="16.00">CS 120</text>
+<text text-anchor="start" x="278.5" y="-951.11" font-family="Arial" font-size="16.00">Computer</text>
+<text text-anchor="start" x="277" y="-933.11" font-family="Arial" font-size="16.00">Science 1</text>
+<text text-anchor="start" x="263.5" y="-910.11" font-family="Arial" font-style="italic" font-size="16.00">4 credit hours</text>
+</g>
+<!-- CS121 -->
+<g id="node5" class="node">
+<title>CS121</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="432.5,-848.91 326.5,-848.91 326.5,-756.91 432.5,-756.91 432.5,-848.91"/>
+<text text-anchor="start" x="352.5" y="-833.11" font-family="Arial" font-weight="bold" font-size="16.00">CS 121</text>
+<text text-anchor="start" x="345.5" y="-808.11" font-family="Arial" font-size="16.00">Computer</text>
+<text text-anchor="start" x="344" y="-790.11" font-family="Arial" font-size="16.00">Science 2</text>
+<text text-anchor="start" x="330.5" y="-767.11" font-family="Arial" font-style="italic" font-size="16.00">4 credit hours</text>
+</g>
+<!-- CS120&#45;&gt;CS121 -->
+<g id="edge1" class="edge">
+<title>CS120&#45;&gt;CS121</title>
+<path fill="none" stroke="black" stroke-width="2" d="M354.21,-899.56C358.11,-893.88 361.66,-887.94 364.5,-881.91 367.85,-874.81 370.44,-867 372.46,-859.16"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="375.91,-859.79 374.72,-849.26 369.09,-858.23 375.91,-859.79"/>
+</g>
+<!-- CS124 -->
+<g id="node6" class="node">
+<title>CS124</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="308,-836.91 227,-836.91 227,-768.91 308,-768.91 308,-836.91"/>
+<text text-anchor="start" x="241" y="-821.11" font-family="Arial" font-weight="bold" font-size="16.00">CS 124</text>
+<text text-anchor="start" x="238" y="-796.11" font-family="Arial" font-size="16.00">Discrete</text>
+<text text-anchor="start" x="231.5" y="-778.11" font-family="Arial" font-size="16.00">Structures</text>
+</g>
+<!-- CS120&#45;&gt;CS124 -->
+<g id="edge2" class="edge">
+<title>CS120&#45;&gt;CS124</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="5,2" d="M280.19,-899.79C277.14,-893.98 274.47,-887.95 272.5,-881.91 268.96,-871.05 267.21,-858.89 266.45,-847.46"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="269.94,-847.08 266.01,-837.24 262.95,-847.38 269.94,-847.08"/>
+<text text-anchor="middle" x="318.5" y="-871.31" font-family="Arial" font-size="12.00"> prereq or parallel</text>
+<polyline fill="none" stroke="black" points="364.5,-867.91 272.5,-867.91 277.19,-893.73 "/>
+</g>
+<!-- HIST150 -->
+<g id="node2" class="node">
+<title>HIST150</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="767,-979.91 674,-979.91 674,-911.91 767,-911.91 767,-979.91"/>
+<text text-anchor="start" x="687.5" y="-964.11" font-family="Arial" font-weight="bold" font-size="16.00">HIST 150</text>
+<text text-anchor="start" x="678.5" y="-939.11" font-family="Arial" font-size="16.00">The West in</text>
+<text text-anchor="start" x="687" y="-921.11" font-family="Arial" font-size="16.00">the World</text>
+</g>
+<!-- UCCPFW -->
+<g id="node3" class="node">
+<title>UCCPFW</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="979,-977.91 832,-977.91 832,-913.91 979,-913.91 979,-977.91"/>
+<text text-anchor="start" x="874" y="-962.11" font-family="Arial" font-weight="bold" font-size="16.00">Physcial</text>
+<text text-anchor="start" x="836.5" y="-946.11" font-family="Arial" font-weight="bold" font-size="16.00">Fitness / Wellness</text>
+<text text-anchor="start" x="857" y="-924.11" font-family="Arial" font-style="italic" font-size="16.00">2 credit hours</text>
+</g>
+<!-- ENG103 -->
+<g id="node4" class="node">
+<title>ENG103</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="563,-970.91 426,-970.91 426,-920.91 563,-920.91 563,-970.91"/>
+<text text-anchor="start" x="462.5" y="-955.11" font-family="Arial" font-weight="bold" font-size="16.00">ENG 103</text>
+<text text-anchor="start" x="430.5" y="-930.11" font-family="Arial" font-size="16.00">Rhetoric &amp; Writing</text>
+</g>
+<!-- ENG104 -->
+<g id="node7" class="node">
+<title>ENG104</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="538,-843.91 451,-843.91 451,-761.91 538,-761.91 538,-843.91"/>
+<text text-anchor="start" x="462.5" y="-828.11" font-family="Arial" font-weight="bold" font-size="16.00">ENG 104</text>
+<text text-anchor="start" x="471.5" y="-812.11" font-family="Arial" font-size="16.00">or </text>
+<text text-anchor="start" x="490.5" y="-812.11" font-family="Arial" font-weight="bold" font-size="16.00">114</text>
+<text text-anchor="start" x="455.5" y="-789.11" font-family="Arial" font-size="16.00">Composing</text>
+<text text-anchor="start" x="460.5" y="-771.11" font-family="Arial" font-size="16.00">Research</text>
+</g>
+<!-- ENG103&#45;&gt;ENG104 -->
+<g id="edge9" class="edge">
+<title>ENG103&#45;&gt;ENG104</title>
+<path fill="none" stroke="black" stroke-width="2" d="M494.5,-920.67C494.5,-902.44 494.5,-876.82 494.5,-854.22"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="498,-854.09 494.5,-844.09 491,-854.09 498,-854.09"/>
+</g>
+<!-- CS222 -->
+<g id="node11" class="node">
+<title>CS222</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="531.5,-707.91 419.5,-707.91 419.5,-639.91 531.5,-639.91 531.5,-707.91"/>
+<text text-anchor="start" x="448.5" y="-692.11" font-family="Arial" font-weight="bold" font-size="16.00">CS 222</text>
+<text text-anchor="start" x="440.5" y="-667.11" font-family="Arial" font-size="16.00">Advanced</text>
+<text text-anchor="start" x="429.5" y="-649.11" font-family="Arial" font-size="16.00">Programming</text>
+</g>
+<!-- CS121&#45;&gt;CS222 -->
+<g id="edge7" class="edge">
+<title>CS121&#45;&gt;CS222:cs222_top</title>
+<path fill="none" stroke="black" stroke-width="2" d="M432.55,-761.4C450.07,-746.38 466.68,-729.83 472.91,-716.65"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="476.32,-717.48 475.5,-706.91 469.55,-715.68 476.32,-717.48"/>
+</g>
+<!-- CS224 -->
+<g id="node12" class="node">
+<title>CS224</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="341,-698.91 248,-698.91 248,-648.91 341,-648.91 341,-698.91"/>
+<text text-anchor="start" x="268" y="-683.11" font-family="Arial" font-weight="bold" font-size="16.00">CS 224</text>
+<text text-anchor="start" x="258.5" y="-658.11" font-family="Arial" font-size="16.00">Algorithms</text>
+</g>
+<!-- CS121&#45;&gt;CS224 -->
+<g id="edge4" class="edge">
+<title>CS121&#45;&gt;CS224:cs224_top</title>
+<path fill="none" stroke="black" stroke-width="2" d="M326.3,-761.48C311.98,-746.59 299.52,-728.34 296.31,-708.04"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="299.78,-707.6 295.5,-697.91 292.8,-708.16 299.78,-707.6"/>
+</g>
+<!-- CS230 -->
+<g id="node16" class="node">
+<title>CS230</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="326,-576.91 215,-576.91 215,-490.91 326,-490.91 326,-576.91"/>
+<text text-anchor="start" x="244" y="-561.11" font-family="Arial" font-weight="bold" font-size="16.00">CS 230</text>
+<text text-anchor="start" x="237" y="-536.11" font-family="Arial" font-size="16.00">Computer</text>
+<text text-anchor="start" x="219.5" y="-518.11" font-family="Arial" font-size="16.00">Organization &amp;</text>
+<text text-anchor="start" x="228.5" y="-500.11" font-family="Arial" font-size="16.00">Architecture</text>
+</g>
+<!-- CS121&#45;&gt;CS230 -->
+<g id="edge3" class="edge">
+<title>CS121&#45;&gt;CS230</title>
+<path fill="none" stroke="black" stroke-width="2" d="M376.71,-756.62C373.34,-723.2 365.9,-677.23 349.5,-639.91 340.98,-620.53 328.26,-601.4 315.49,-584.89"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="318.2,-582.66 309.24,-577 312.71,-587.01 318.2,-582.66"/>
+</g>
+<!-- CS124&#45;&gt;CS222 -->
+<g id="edge8" class="edge">
+<title>CS124&#45;&gt;CS222:cs222_top</title>
+<path fill="none" stroke="black" stroke-width="2" d="M297.62,-768.69C303.79,-763.19 310.53,-757.97 317.5,-753.91 331.23,-745.92 439.96,-730.22 468.61,-714.24"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="471.2,-716.59 475.5,-706.91 466.1,-711.8 471.2,-716.59"/>
+</g>
+<!-- CS124&#45;&gt;CS224 -->
+<g id="edge5" class="edge">
+<title>CS124&#45;&gt;CS224:cs224_top</title>
+<path fill="none" stroke="black" stroke-width="2" d="M281.17,-768.8C287.31,-751.41 293.53,-729.33 295.11,-707.98"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="298.61,-708.04 295.5,-697.91 291.62,-707.77 298.61,-708.04"/>
+</g>
+<!-- CS124&#45;&gt;CS230 -->
+<g id="edge6" class="edge">
+<title>CS124&#45;&gt;CS230</title>
+<path fill="none" stroke="black" stroke-width="2" d="M254.53,-768.54C248.34,-750.83 241.61,-728.51 238.5,-707.91 233.99,-678.03 234.05,-669.8 238.5,-639.91 241.14,-622.19 246.16,-603.31 251.45,-586.53"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="254.82,-587.5 254.59,-576.91 248.16,-585.34 254.82,-587.5"/>
+</g>
+<!-- ENG104&#45;&gt;CS222 -->
+<g id="edge10" class="edge">
+<title>ENG104&#45;&gt;CS222</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="5,2" d="M488.49,-761.73C486.41,-747.81 484.06,-732.16 481.95,-718.02"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="485.4,-717.4 480.45,-708.03 478.47,-718.44 485.4,-717.4"/>
+<text text-anchor="middle" x="531.5" y="-729.31" font-family="Arial" font-size="12.00"> prereq or parallel</text>
+<polyline fill="none" stroke="black" points="577.5,-725.91 485.5,-725.91 485.13,-739.26 "/>
+</g>
+<!-- UCCT1NS -->
+<g id="node8" class="node">
+<title>UCCT1NS</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="828.5,-846.91 702.5,-846.91 702.5,-758.91 828.5,-758.91 828.5,-846.91"/>
+<text text-anchor="start" x="744" y="-831.11" font-family="Arial" font-weight="bold" font-size="16.00">Tier 1</text>
+<text text-anchor="start" x="706.5" y="-815.11" font-family="Arial" font-weight="bold" font-size="16.00">Natural Science</text>
+<text text-anchor="start" x="707.5" y="-793.11" font-family="Arial" font-style="italic" font-size="16.00">CS Lab Science</text>
+<text text-anchor="start" x="707.5" y="-769.11" font-family="Arial" font-style="italic" font-size="16.00">3–5 credit hours</text>
+</g>
+<!-- UCCT2NSS -->
+<g id="node19" class="node">
+<title>UCCT2NSS</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="862,-561.91 731,-561.91 731,-505.91 862,-505.91 862,-561.91"/>
+<text text-anchor="start" x="775.5" y="-546.11" font-family="Arial" font-weight="bold" font-size="16.00">Tier 2</text>
+<text text-anchor="start" x="760" y="-530.11" font-family="Arial" font-weight="bold" font-size="16.00">Natural or</text>
+<text text-anchor="start" x="741.5" y="-514.11" font-family="Arial" font-weight="bold" font-size="16.00">Social Science</text>
+</g>
+<!-- UCCT1NS&#45;&gt;UCCT2NSS -->
+<g id="edge13" class="edge">
+<title>UCCT1NS&#45;&gt;UCCT2NSS:ucct2nss_top</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="1,5" d="M770,-758.87C773.55,-726.18 778.83,-680.15 784.5,-639.91 788.96,-608.25 795.9,-598.44 797.26,-570.96"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="800.76,-570.99 797.5,-560.91 793.77,-570.83 800.76,-570.99"/>
+</g>
+<!-- UCCPFIN -->
+<g id="node9" class="node">
+<title>UCCPFIN</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="944.5,-834.91 846.5,-834.91 846.5,-770.91 944.5,-770.91 944.5,-834.91"/>
+<text text-anchor="start" x="862" y="-819.11" font-family="Arial" font-weight="bold" font-size="16.00">Personal</text>
+<text text-anchor="start" x="865" y="-803.11" font-family="Arial" font-weight="bold" font-size="16.00">Finance</text>
+<text text-anchor="start" x="850.5" y="-781.11" font-family="Arial" font-style="italic" font-size="16.00">1 credit hour</text>
+</g>
+<!-- MATH181 -->
+<g id="node10" class="node">
+<title>MATH181</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="1060,-845.91 963,-845.91 963,-759.91 1060,-759.91 1060,-845.91"/>
+<text text-anchor="start" x="974" y="-830.11" font-family="Arial" font-weight="bold" font-size="16.00">MATH 181</text>
+<text text-anchor="start" x="972.5" y="-805.11" font-family="Arial" font-size="16.00">Elementary</text>
+<text text-anchor="start" x="967.5" y="-787.11" font-family="Arial" font-size="16.00">Probability &amp;</text>
+<text text-anchor="start" x="979" y="-769.11" font-family="Arial" font-size="16.00">Statistics</text>
+</g>
+<!-- CS239 -->
+<g id="node17" class="node">
+<title>CS239</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="712.5,-588.91 614.5,-588.91 614.5,-478.91 712.5,-478.91 712.5,-588.91"/>
+<text text-anchor="start" x="636.5" y="-573.11" font-family="Arial" font-weight="bold" font-size="16.00">CS 239</text>
+<text text-anchor="start" x="634" y="-548.11" font-family="Arial" font-size="16.00">Social &amp;</text>
+<text text-anchor="start" x="619.5" y="-530.11" font-family="Arial" font-size="16.00">Professional</text>
+<text text-anchor="start" x="640" y="-512.11" font-family="Arial" font-size="16.00">Issues</text>
+<text text-anchor="start" x="618.5" y="-489.11" font-family="Arial" font-style="italic" font-size="16.00">1 credit hour</text>
+</g>
+<!-- CS222&#45;&gt;CS239 -->
+<g id="edge15" class="edge">
+<title>CS222&#45;&gt;CS239</title>
+<path fill="none" stroke="black" stroke-width="2" d="M531.62,-657.5C554.53,-649.38 580.32,-637.76 600.5,-621.91 609.46,-614.87 617.73,-606.24 625.14,-597.17"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="628.02,-599.16 631.41,-589.12 622.5,-594.86 628.02,-599.16"/>
+</g>
+<!-- CS495 -->
+<g id="node22" class="node">
+<title>CS495</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="632.5,-201 460.5,-201 460.5,-127 632.5,-127 632.5,-201"/>
+<text text-anchor="start" x="519.5" y="-185.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 495</text>
+<text text-anchor="start" x="464.5" y="-160.2" font-family="Arial" font-size="16.00">Software Engineering 1</text>
+<text text-anchor="start" x="485.5" y="-137.2" font-family="Arial" font-style="italic" font-size="16.00">BSU Core: Tier 3</text>
+</g>
+<!-- CS222&#45;&gt;CS495 -->
+<g id="edge16" class="edge">
+<title>CS222&#45;&gt;CS495</title>
+<path fill="none" stroke="black" stroke-width="2" d="M523.54,-639.83C553.54,-614.93 586.5,-577.8 586.5,-534.91 586.5,-534.91 586.5,-534.91 586.5,-286.46 586.5,-260.43 578.11,-232.76 569.01,-210.42"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="572.23,-209.03 565.09,-201.19 565.78,-211.77 572.23,-209.03"/>
+</g>
+<!-- CS418 -->
+<g id="node29" class="node">
+<title>CS418</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="558,-417.91 481,-417.91 481,-349.91 558,-349.91 558,-417.91"/>
+<text text-anchor="start" x="493" y="-402.11" font-family="Arial" font-weight="bold" font-size="16.00">CS 418</text>
+<text text-anchor="start" x="485.5" y="-377.11" font-family="Arial" font-size="16.00">Database</text>
+<text text-anchor="start" x="495.5" y="-359.11" font-family="Arial" font-size="16.00">Design</text>
+</g>
+<!-- CS222&#45;&gt;CS418 -->
+<g id="edge27" class="edge">
+<title>CS222&#45;&gt;CS418</title>
+<path fill="none" stroke="black" stroke-width="2" d="M450.24,-639.67C447.06,-634.01 444.29,-627.98 442.5,-621.91 440.61,-615.52 441.39,-613.49 442.5,-606.91 453.39,-542.26 480.95,-471.3 499.96,-427.42"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="503.19,-428.78 504,-418.21 496.78,-425.97 503.19,-428.78"/>
+</g>
+<!-- CS419 -->
+<g id="node30" class="node">
+<title>CS419</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="250,-417.91 173,-417.91 173,-349.91 250,-349.91 250,-417.91"/>
+<text text-anchor="start" x="185" y="-402.11" font-family="Arial" font-weight="bold" font-size="16.00">CS 419</text>
+<text text-anchor="start" x="177.5" y="-377.11" font-family="Arial" font-size="16.00">Operating</text>
+<text text-anchor="start" x="181.5" y="-359.11" font-family="Arial" font-size="16.00">Systems</text>
+</g>
+<!-- CS222&#45;&gt;CS419 -->
+<g id="edge28" class="edge">
+<title>CS222&#45;&gt;CS419</title>
+<path fill="none" stroke="black" stroke-width="2" d="M460.87,-639.83C455.59,-629.03 449.26,-617.18 442.5,-606.91 401.57,-544.74 395.61,-521.41 334.5,-478.91 305.42,-458.68 287.76,-473.28 259.5,-451.91 250.41,-445.04 242.33,-435.96 235.52,-426.71"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="238.2,-424.44 229.62,-418.23 232.45,-428.44 238.2,-424.44"/>
+</g>
+<!-- CS431 -->
+<g id="node31" class="node">
+<title>CS431</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="462.5,-417.91 362.5,-417.91 362.5,-349.91 462.5,-349.91 462.5,-417.91"/>
+<text text-anchor="start" x="385.5" y="-402.11" font-family="Arial" font-weight="bold" font-size="16.00">CS 431</text>
+<text text-anchor="start" x="366.5" y="-377.11" font-family="Arial" font-size="16.00">Programming</text>
+<text text-anchor="start" x="373.5" y="-359.11" font-family="Arial" font-size="16.00">Languages</text>
+</g>
+<!-- CS222&#45;&gt;CS431 -->
+<g id="edge31" class="edge">
+<title>CS222&#45;&gt;CS431</title>
+<path fill="none" stroke="black" stroke-width="2" d="M480.96,-639.65C486.62,-596.73 491.95,-520.4 470.5,-459.91 466.24,-447.92 459.27,-436.32 451.6,-425.99"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="454.26,-423.7 445.35,-417.98 448.75,-428.02 454.26,-423.7"/>
+</g>
+<!-- CS380 -->
+<g id="node27" class="node">
+<title>CS380</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="154.5,-417.91 72.5,-417.91 72.5,-349.91 154.5,-349.91 154.5,-417.91"/>
+<text text-anchor="start" x="86.5" y="-402.11" font-family="Arial" font-weight="bold" font-size="16.00">CS 380</text>
+<text text-anchor="start" x="80" y="-377.11" font-family="Arial" font-size="16.00">Theory of</text>
+<text text-anchor="start" x="76.5" y="-359.11" font-family="Arial" font-size="16.00">Computing</text>
+</g>
+<!-- CS224&#45;&gt;CS380 -->
+<g id="edge25" class="edge">
+<title>CS224&#45;&gt;CS380</title>
+<path fill="none" stroke="black" stroke-width="2" d="M263.11,-648.6C244.58,-633.05 221.65,-611.58 205.5,-588.91 169.32,-538.12 142.34,-470.83 127.25,-427.7"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="130.51,-426.39 123.94,-418.08 123.89,-428.67 130.51,-426.39"/>
+</g>
+<!-- CS416 -->
+<g id="node28" class="node">
+<title>CS416</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="344.5,-417.91 268.5,-417.91 268.5,-349.91 344.5,-349.91 344.5,-417.91"/>
+<text text-anchor="start" x="279.5" y="-402.11" font-family="Arial" font-weight="bold" font-size="16.00">CS 416</text>
+<text text-anchor="start" x="272.5" y="-377.11" font-family="Arial" font-size="16.00">Computer</text>
+<text text-anchor="start" x="273.5" y="-359.11" font-family="Arial" font-size="16.00">Networks</text>
+</g>
+<!-- CS224&#45;&gt;CS416 -->
+<g id="edge26" class="edge">
+<title>CS224&#45;&gt;CS416</title>
+<path fill="none" stroke="black" stroke-width="2" d="M309.64,-648.61C318.83,-632.38 329.69,-610.18 334.5,-588.91 345.27,-541.22 341.55,-527.29 334.5,-478.91 332.02,-461.89 327.13,-443.66 322.13,-427.83"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="325.45,-426.73 319.02,-418.32 318.8,-428.91 325.45,-426.73"/>
+</g>
+<!-- UCCT1SS -->
+<g id="node13" class="node">
+<title>UCCT1SS</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="863,-701.91 794,-701.91 794,-645.91 863,-645.91 863,-701.91"/>
+<text text-anchor="start" x="807.5" y="-686.11" font-family="Arial" font-weight="bold" font-size="16.00">Tier 1</text>
+<text text-anchor="start" x="806" y="-670.11" font-family="Arial" font-weight="bold" font-size="16.00">Social</text>
+<text text-anchor="start" x="798.5" y="-654.11" font-family="Arial" font-weight="bold" font-size="16.00">Science</text>
+</g>
+<!-- UCCT1SS&#45;&gt;UCCT2NSS -->
+<g id="edge14" class="edge">
+<title>UCCT1SS&#45;&gt;UCCT2NSS:ucct2nss_top</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="1,5" d="M816.6,-645.87C808.85,-626.07 799.83,-598.06 797.88,-571.15"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="801.37,-570.77 797.5,-560.91 794.37,-571.04 801.37,-570.77"/>
+<text text-anchor="middle" x="819" y="-610.71" font-family="Arial" font-size="14.00"> &#160;or</text>
+<polyline fill="none" stroke="black" points="829.5,-606.91 808.5,-606.91 806.91,-617.71 "/>
+</g>
+<!-- UCCT1HU -->
+<g id="node14" class="node">
+<title>UCCT1HU</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="974,-693.91 881,-693.91 881,-653.91 974,-653.91 974,-693.91"/>
+<text text-anchor="start" x="906.5" y="-678.11" font-family="Arial" font-weight="bold" font-size="16.00">Tier 1</text>
+<text text-anchor="start" x="885.5" y="-662.11" font-family="Arial" font-weight="bold" font-size="16.00">Humanities</text>
+</g>
+<!-- UCCT2FDH -->
+<g id="node21" class="node">
+<title>UCCT2FDH</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="1086.5,-561.91 904.5,-561.91 904.5,-505.91 1086.5,-505.91 1086.5,-561.91"/>
+<text text-anchor="start" x="974" y="-546.11" font-family="Arial" font-weight="bold" font-size="16.00">Tier 2</text>
+<text text-anchor="start" x="951" y="-530.11" font-family="Arial" font-weight="bold" font-size="16.00">Fine Arts or</text>
+<text text-anchor="start" x="914.5" y="-514.11" font-family="Arial" font-weight="bold" font-size="16.00">Design or Humanities</text>
+</g>
+<!-- UCCT1HU&#45;&gt;UCCT2FDH -->
+<g id="edge12" class="edge">
+<title>UCCT1HU&#45;&gt;UCCT2FDH:ucct2fdh_top</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="1,5" d="M948.27,-653.61C966.39,-634.77 990.46,-604.21 994.81,-571.22"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="998.32,-571.12 995.5,-560.91 991.34,-570.66 998.32,-571.12"/>
+</g>
+<!-- UCCT1FA -->
+<g id="node15" class="node">
+<title>UCCT1FA</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="1046.5,-701.91 992.5,-701.91 992.5,-645.91 1046.5,-645.91 1046.5,-701.91"/>
+<text text-anchor="start" x="998.5" y="-686.11" font-family="Arial" font-weight="bold" font-size="16.00">Tier 1</text>
+<text text-anchor="start" x="1003.5" y="-670.11" font-family="Arial" font-weight="bold" font-size="16.00">Fine</text>
+<text text-anchor="start" x="1004" y="-654.11" font-family="Arial" font-weight="bold" font-size="16.00">Arts</text>
+</g>
+<!-- UCCT1FA&#45;&gt;UCCT2FDH -->
+<g id="edge11" class="edge">
+<title>UCCT1FA&#45;&gt;UCCT2FDH:ucct2fdh_top</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="1,5" d="M1010.29,-645.64C1004.29,-625.72 997.3,-597.65 995.8,-571.02"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="999.29,-570.81 995.5,-560.91 992.29,-571.01 999.29,-570.81"/>
+<text text-anchor="middle" x="1013" y="-610.71" font-family="Arial" font-size="14.00"> &#160;or</text>
+<polyline fill="none" stroke="black" points="1023.5,-606.91 1002.5,-606.91 1002.65,-616.8 "/>
+</g>
+<!-- CS230&#45;&gt;CS380 -->
+<!-- CS230&#45;&gt;CS416 -->
+<!-- CS230&#45;&gt;CS418 -->
+<!-- CS230&#45;&gt;CS419 -->
+<g id="edge29" class="edge">
+<title>CS230&#45;&gt;CS419</title>
+<path fill="none" stroke="black" stroke-width="2" d="M253.75,-490.9C245.85,-471.07 236.43,-447.44 228.49,-427.54"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="231.68,-426.09 224.73,-418.1 225.18,-428.68 231.68,-426.09"/>
+</g>
+<!-- CS230&#45;&gt;CS431 -->
+<g id="edge30" class="edge">
+<title>CS230&#45;&gt;CS431</title>
+<path fill="none" stroke="black" stroke-width="2" d="M288.07,-490.71C294.77,-479.16 303.5,-467.68 314.5,-459.91 328.95,-449.7 338.19,-460.79 353.5,-451.91 364.82,-445.35 375.09,-435.82 383.77,-426.01"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="386.64,-428.04 390.38,-418.13 381.28,-423.54 386.64,-428.04"/>
+</g>
+<!-- CS239&#45;&gt;CS495 -->
+<!-- COMM210 -->
+<g id="node18" class="node">
+<title>COMM210</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="89,-567.91 0,-567.91 0,-499.91 89,-499.91 89,-567.91"/>
+<text text-anchor="start" x="4.5" y="-552.11" font-family="Arial" font-weight="bold" font-size="16.00">COMM 210</text>
+<text text-anchor="start" x="23.5" y="-527.11" font-family="Arial" font-size="16.00">Public</text>
+<text text-anchor="start" x="12.5" y="-509.11" font-family="Arial" font-size="16.00">Speaking</text>
+</g>
+<!-- COMM210&#45;&gt;CS495 -->
+<g id="edge19" class="edge">
+<title>COMM210&#45;&gt;CS495</title>
+<path fill="none" stroke="black" stroke-width="2" d="M37.37,-499.76C30.5,-458.38 25.64,-387.52 60.5,-341.91 153.26,-220.55 337.35,-182.36 450.42,-170.4"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="450.87,-173.87 460.46,-169.38 450.16,-166.91 450.87,-173.87"/>
+</g>
+<!-- Permission -->
+<g id="node20" class="node">
+<title>Permission</title>
+<ellipse fill="none" stroke="blue" stroke-width="2" cx="427.5" cy="-287.46" rx="58.88" ry="25.41"/>
+<text text-anchor="middle" x="427.5" y="-292.66" font-family="Arial" font-size="16.00">Permission:</text>
+<text text-anchor="middle" x="427.5" y="-274.66" font-family="Arial" font-size="16.00">Final Year</text>
+</g>
+<!-- Permission&#45;&gt;CS495 -->
+<g id="edge18" class="edge">
+<title>Permission&#45;&gt;CS495</title>
+<path fill="none" stroke="black" stroke-width="2" d="M449.88,-263.61C465.1,-248.08 485.71,-227.05 503.98,-208.4"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="506.62,-210.7 511.12,-201.11 501.62,-205.81 506.62,-210.7"/>
+</g>
+<!-- CS498 -->
+<g id="node23" class="node">
+<title>CS498</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="650,-90 443,-90 443,-16 650,-16 650,-90"/>
+<text text-anchor="start" x="520" y="-74.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 498</text>
+<text text-anchor="start" x="465" y="-49.2" font-family="Arial" font-size="16.00">Software Engineering 2</text>
+<text text-anchor="start" x="447.5" y="-26.2" font-family="Arial" font-style="italic" font-size="16.00">BSU Core: Writing Intensive</text>
+</g>
+<!-- CS495&#45;&gt;CS498 -->
+<g id="edge20" class="edge">
+<title>CS495&#45;&gt;CS498</title>
+<path fill="none" stroke="black" stroke-width="2" d="M546.5,-126.7C546.5,-118.25 546.5,-109.13 546.5,-100.3"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="550,-100.14 546.5,-90.14 543,-100.14 550,-100.14"/>
+</g>
+<!-- MATH_PLACEMENT -->
+<g id="node24" class="node">
+<title>MATH_PLACEMENT</title>
+<polygon fill="none" stroke="black" stroke-width="2" points="1342,-976.91 1239,-976.91 1239,-914.91 1342,-914.91 1342,-976.91"/>
+<text text-anchor="start" x="1243.5" y="-960.11" font-family="Arial" font-size="16.00">Placement by</text>
+<text text-anchor="start" x="1254.5" y="-942.11" font-family="Arial" font-size="16.00">SAT, ACT,</text>
+<text text-anchor="start" x="1256" y="-924.11" font-family="Arial" font-size="16.00">or ALEKS</text>
+</g>
+<!-- MATH161 -->
+<g id="node26" class="node">
+<title>MATH161</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="1289.5,-843.91 1173.5,-843.91 1173.5,-761.91 1289.5,-761.91 1289.5,-843.91"/>
+<text text-anchor="start" x="1183.5" y="-828.11" font-family="Arial" font-weight="bold" font-size="16.00">MATH 161</text>
+<text text-anchor="start" x="1259.5" y="-828.11" font-family="Arial" font-style="italic" font-size="16.00">(3)</text>
+<text text-anchor="start" x="1193.5" y="-812.11" font-family="Arial" font-size="16.00">or </text>
+<text text-anchor="start" x="1212.5" y="-812.11" font-family="Arial" font-weight="bold" font-size="16.00">165 </text>
+<text text-anchor="start" x="1244.5" y="-812.11" font-family="Arial" font-style="italic" font-size="16.00"> (4)</text>
+<text text-anchor="start" x="1201" y="-789.11" font-family="Arial" font-size="16.00">(Applied)</text>
+<text text-anchor="start" x="1195" y="-771.11" font-family="Arial" font-size="16.00">Calculus 1</text>
+</g>
+<!-- MATH_PLACEMENT&#45;&gt;MATH161 -->
+<g id="edge33" class="edge">
+<title>MATH_PLACEMENT&#45;&gt;MATH161:math161_top</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="1,5" d="M1262.04,-914.87C1248.84,-898.18 1235.36,-876.12 1232.19,-852.92"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="1235.68,-852.65 1231.5,-842.91 1228.7,-853.13 1235.68,-852.65"/>
+</g>
+<!-- MATH114 -->
+<g id="node25" class="node">
+<title>MATH114</title>
+<polygon fill="none" stroke="black" stroke-width="2" points="1220.5,-965.91 1122.5,-965.91 1122.5,-925.91 1220.5,-925.91 1220.5,-965.91"/>
+<text text-anchor="start" x="1133.5" y="-950.11" font-family="Arial" font-weight="bold" font-size="16.00">MATH 114</text>
+<text text-anchor="start" x="1126.5" y="-934.11" font-family="Arial" font-size="16.00">Pre&#45;Calculus</text>
+</g>
+<!-- MATH114&#45;&gt;MATH161 -->
+<g id="edge32" class="edge">
+<title>MATH114&#45;&gt;MATH161:math161_top</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="1,5" d="M1179.37,-925.89C1186.48,-909.62 1197.76,-885.89 1210.5,-866.91 1215.93,-858.82 1223.82,-857.21 1228.22,-852.39"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="1231.54,-853.51 1231.5,-842.91 1224.92,-851.22 1231.54,-853.51"/>
+<text text-anchor="middle" x="1221" y="-870.71" font-family="Arial" font-size="14.00"> &#160;or</text>
+<polyline fill="none" stroke="black" points="1231.5,-866.91 1210.5,-866.91 1210.63,-866.72 "/>
+</g>
+<!-- CS419&#45;&gt;Permission -->
+</g>
+</svg>
+
+
+
+
+
+
+<h2>Web and Mobile App Development Concentration</h2>
+
+The program emphasizes web and mobile app courses that are currently electives.
+
+<svg
+ viewBox="0.00 0.00 1200.00 1023.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 1019)">
+<title>Web_Mobile</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-1019 1196,-1019 1196,4 -4,4"/>
+<g id="clust6" class="cluster">
+<title>cluster_web_mobile</title>
+<polygon fill="none" stroke="black" stroke-width="2" points="137.5,-251 137.5,-477 519.5,-477 519.5,-251 137.5,-251"/>
+<text text-anchor="middle" x="328.5" y="-461.8" font-family="Arial" font-size="14.00">Web &amp; Mobile Concentration</text>
+</g>
+<g id="clust5" class="cluster">
+<title>cluster_softeng</title>
+<polygon fill="none" stroke="black" stroke-width="2" points="336.5,-8 336.5,-232 560.5,-232 560.5,-8 336.5,-8"/>
+<text text-anchor="middle" x="448.5" y="-216.8" font-family="Arial" font-size="14.00">Senior Capstone Sequence</text>
+</g>
+<!-- CS120 -->
+<g id="node1" class="node">
+<title>CS120</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="668.5,-1015 562.5,-1015 562.5,-923 668.5,-923 668.5,-1015"/>
+<text text-anchor="start" x="588.5" y="-999.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 120</text>
+<text text-anchor="start" x="581.5" y="-974.2" font-family="Arial" font-size="16.00">Computer</text>
+<text text-anchor="start" x="580" y="-956.2" font-family="Arial" font-size="16.00">Science 1</text>
+<text text-anchor="start" x="566.5" y="-933.2" font-family="Arial" font-style="italic" font-size="16.00">4 credit hours</text>
+</g>
+<!-- CS121 -->
+<g id="node5" class="node">
+<title>CS121</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="605.5,-874 499.5,-874 499.5,-782 605.5,-782 605.5,-874"/>
+<text text-anchor="start" x="525.5" y="-858.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 121</text>
+<text text-anchor="start" x="518.5" y="-833.2" font-family="Arial" font-size="16.00">Computer</text>
+<text text-anchor="start" x="517" y="-815.2" font-family="Arial" font-size="16.00">Science 2</text>
+<text text-anchor="start" x="503.5" y="-792.2" font-family="Arial" font-style="italic" font-size="16.00">4 credit hours</text>
+</g>
+<!-- CS120&#45;&gt;CS121 -->
+<g id="edge1" class="edge">
+<title>CS120&#45;&gt;CS121</title>
+<path fill="none" stroke="black" stroke-width="2" d="M595.05,-922.87C589.38,-910.37 583.17,-896.66 577.28,-883.68"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="580.38,-882.04 573.07,-874.38 574.01,-884.93 580.38,-882.04"/>
+</g>
+<!-- CS124 -->
+<g id="node6" class="node">
+<title>CS124</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="705,-862 624,-862 624,-794 705,-794 705,-862"/>
+<text text-anchor="start" x="638" y="-846.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 124</text>
+<text text-anchor="start" x="635" y="-821.2" font-family="Arial" font-size="16.00">Discrete</text>
+<text text-anchor="start" x="628.5" y="-803.2" font-family="Arial" font-size="16.00">Structures</text>
+</g>
+<!-- CS120&#45;&gt;CS124 -->
+<g id="edge2" class="edge">
+<title>CS120&#45;&gt;CS124</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="5,2" d="M631.41,-922.87C637.19,-906.46 643.71,-887.97 649.42,-871.77"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="652.84,-872.61 652.86,-862.02 646.24,-870.28 652.84,-872.61"/>
+<text text-anchor="middle" x="686.5" y="-895.4" font-family="Arial" font-size="12.00"> prereq or parallel</text>
+<polyline fill="none" stroke="black" points="732.5,-892 640.5,-892 645.15,-883.88 "/>
+</g>
+<!-- HIST150 -->
+<g id="node2" class="node">
+<title>HIST150</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="780,-1003 687,-1003 687,-935 780,-935 780,-1003"/>
+<text text-anchor="start" x="700.5" y="-987.2" font-family="Arial" font-weight="bold" font-size="16.00">HIST 150</text>
+<text text-anchor="start" x="691.5" y="-962.2" font-family="Arial" font-size="16.00">The West in</text>
+<text text-anchor="start" x="700" y="-944.2" font-family="Arial" font-size="16.00">the World</text>
+</g>
+<!-- UCCPFW -->
+<g id="node3" class="node">
+<title>UCCPFW</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="945,-1001 798,-1001 798,-937 945,-937 945,-1001"/>
+<text text-anchor="start" x="840" y="-985.2" font-family="Arial" font-weight="bold" font-size="16.00">Physcial</text>
+<text text-anchor="start" x="802.5" y="-969.2" font-family="Arial" font-weight="bold" font-size="16.00">Fitness / Wellness</text>
+<text text-anchor="start" x="823" y="-947.2" font-family="Arial" font-style="italic" font-size="16.00">2 credit hours</text>
+</g>
+<!-- ENG103 -->
+<g id="node4" class="node">
+<title>ENG103</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="494,-994 357,-994 357,-944 494,-944 494,-994"/>
+<text text-anchor="start" x="393.5" y="-978.2" font-family="Arial" font-weight="bold" font-size="16.00">ENG 103</text>
+<text text-anchor="start" x="361.5" y="-953.2" font-family="Arial" font-size="16.00">Rhetoric &amp; Writing</text>
+</g>
+<!-- ENG104 -->
+<g id="node7" class="node">
+<title>ENG104</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="469,-869 382,-869 382,-787 469,-787 469,-869"/>
+<text text-anchor="start" x="393.5" y="-853.2" font-family="Arial" font-weight="bold" font-size="16.00">ENG 104</text>
+<text text-anchor="start" x="402.5" y="-837.2" font-family="Arial" font-size="16.00">or </text>
+<text text-anchor="start" x="421.5" y="-837.2" font-family="Arial" font-weight="bold" font-size="16.00">114</text>
+<text text-anchor="start" x="386.5" y="-814.2" font-family="Arial" font-size="16.00">Composing</text>
+<text text-anchor="start" x="391.5" y="-796.2" font-family="Arial" font-size="16.00">Research</text>
+</g>
+<!-- ENG103&#45;&gt;ENG104 -->
+<g id="edge9" class="edge">
+<title>ENG103&#45;&gt;ENG104</title>
+<path fill="none" stroke="black" stroke-width="2" d="M425.5,-943.79C425.5,-926.06 425.5,-901.37 425.5,-879.43"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="429,-879.25 425.5,-869.25 422,-879.25 429,-879.25"/>
+</g>
+<!-- CS222 -->
+<g id="node11" class="node">
+<title>CS222</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="481.5,-733 369.5,-733 369.5,-665 481.5,-665 481.5,-733"/>
+<text text-anchor="start" x="398.5" y="-717.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 222</text>
+<text text-anchor="start" x="390.5" y="-692.2" font-family="Arial" font-size="16.00">Advanced</text>
+<text text-anchor="start" x="379.5" y="-674.2" font-family="Arial" font-size="16.00">Programming</text>
+</g>
+<!-- CS121&#45;&gt;CS222 -->
+<g id="edge7" class="edge">
+<title>CS121&#45;&gt;CS222:cs222_top</title>
+<path fill="none" stroke="black" stroke-width="2" d="M542.31,-781.68C537.71,-770.19 531.07,-758.89 521.5,-751 491.22,-726.03 437.42,-766.07 427.2,-742.17"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="430.6,-741.29 425.5,-732 423.7,-742.44 430.6,-741.29"/>
+</g>
+<!-- CS224 -->
+<g id="node12" class="node">
+<title>CS224</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="686,-724 593,-724 593,-674 686,-674 686,-724"/>
+<text text-anchor="start" x="613" y="-708.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 224</text>
+<text text-anchor="start" x="603.5" y="-683.2" font-family="Arial" font-size="16.00">Algorithms</text>
+</g>
+<!-- CS121&#45;&gt;CS224 -->
+<g id="edge4" class="edge">
+<title>CS121&#45;&gt;CS224:cs224_top</title>
+<path fill="none" stroke="black" stroke-width="2" d="M605.72,-789.49C621.79,-774.22 636.14,-755 639.67,-733.19"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="643.18,-733.25 640.5,-723 636.2,-732.68 643.18,-733.25"/>
+</g>
+<!-- CS230 -->
+<g id="node16" class="node">
+<title>CS230</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="760,-602 649,-602 649,-516 760,-516 760,-602"/>
+<text text-anchor="start" x="678" y="-586.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 230</text>
+<text text-anchor="start" x="671" y="-561.2" font-family="Arial" font-size="16.00">Computer</text>
+<text text-anchor="start" x="653.5" y="-543.2" font-family="Arial" font-size="16.00">Organization &amp;</text>
+<text text-anchor="start" x="662.5" y="-525.2" font-family="Arial" font-size="16.00">Architecture</text>
+</g>
+<!-- CS121&#45;&gt;CS230 -->
+<g id="edge3" class="edge">
+<title>CS121&#45;&gt;CS230</title>
+<path fill="none" stroke="black" stroke-width="2" d="M553.64,-781.99C556.26,-747.87 563.79,-700.88 584.5,-665 598.43,-640.87 619.95,-619.49 640.95,-602.42"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="643.27,-605.04 648.95,-596.09 638.93,-599.54 643.27,-605.04"/>
+</g>
+<!-- CS124&#45;&gt;CS222 -->
+<g id="edge8" class="edge">
+<title>CS124&#45;&gt;CS222:cs222_top</title>
+<path fill="none" stroke="black" stroke-width="2" d="M630.75,-793.93C625.52,-789.62 620.02,-785.5 614.5,-782 584.38,-762.92 574.77,-760.86 540.5,-751 519.11,-744.84 449.55,-754.37 430.41,-740.73"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="433.46,-739 425.5,-732 427.36,-742.43 433.46,-739"/>
+</g>
+<!-- CS124&#45;&gt;CS224 -->
+<g id="edge5" class="edge">
+<title>CS124&#45;&gt;CS224:cs224_top</title>
+<path fill="none" stroke="black" stroke-width="2" d="M652.78,-793.73C647.55,-776.37 642.24,-754.4 640.85,-733.28"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="644.34,-732.88 640.5,-723 637.34,-733.11 644.34,-732.88"/>
+</g>
+<!-- CS124&#45;&gt;CS230 -->
+<g id="edge6" class="edge">
+<title>CS124&#45;&gt;CS230</title>
+<path fill="none" stroke="black" stroke-width="2" d="M677.91,-793.63C684.42,-775.92 691.64,-753.61 695.5,-733 702.98,-693.08 705.07,-647.14 705.38,-612.64"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="708.88,-612.33 705.42,-602.32 701.88,-612.31 708.88,-612.33"/>
+</g>
+<!-- ENG104&#45;&gt;CS222 -->
+<g id="edge10" class="edge">
+<title>ENG104&#45;&gt;CS222</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="5,2" d="M425.5,-786.82C425.5,-773.03 425.5,-757.55 425.5,-743.52"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="429,-743.12 425.5,-733.12 422,-743.12 429,-743.12"/>
+<text text-anchor="middle" x="471.5" y="-754.4" font-family="Arial" font-size="12.00"> prereq or parallel</text>
+<polyline fill="none" stroke="black" points="517.5,-751 425.5,-751 425.5,-757.69 "/>
+</g>
+<!-- UCCT1NS -->
+<g id="node8" class="node">
+<title>UCCT1NS</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="869.5,-872 743.5,-872 743.5,-784 869.5,-784 869.5,-872"/>
+<text text-anchor="start" x="785" y="-856.2" font-family="Arial" font-weight="bold" font-size="16.00">Tier 1</text>
+<text text-anchor="start" x="747.5" y="-840.2" font-family="Arial" font-weight="bold" font-size="16.00">Natural Science</text>
+<text text-anchor="start" x="748.5" y="-818.2" font-family="Arial" font-style="italic" font-size="16.00">CS Lab Science</text>
+<text text-anchor="start" x="748.5" y="-794.2" font-family="Arial" font-style="italic" font-size="16.00">3–5 credit hours</text>
+</g>
+<!-- UCCT2NSS -->
+<g id="node19" class="node">
+<title>UCCT2NSS</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="937,-587 806,-587 806,-531 937,-531 937,-587"/>
+<text text-anchor="start" x="850.5" y="-571.2" font-family="Arial" font-weight="bold" font-size="16.00">Tier 2</text>
+<text text-anchor="start" x="835" y="-555.2" font-family="Arial" font-weight="bold" font-size="16.00">Natural or</text>
+<text text-anchor="start" x="816.5" y="-539.2" font-family="Arial" font-weight="bold" font-size="16.00">Social Science</text>
+</g>
+<!-- UCCT1NS&#45;&gt;UCCT2NSS -->
+<g id="edge14" class="edge">
+<title>UCCT1NS&#45;&gt;UCCT2NSS:ucct2nss_top</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="1,5" d="M807.13,-783.66C808.74,-750.42 813.42,-703.8 826.5,-665 838.31,-629.96 866.73,-626.92 871.74,-596.02"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="875.23,-596.24 872.5,-586 868.25,-595.71 875.23,-596.24"/>
+</g>
+<!-- UCCPFIN -->
+<g id="node9" class="node">
+<title>UCCPFIN</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="985.5,-860 887.5,-860 887.5,-796 985.5,-796 985.5,-860"/>
+<text text-anchor="start" x="903" y="-844.2" font-family="Arial" font-weight="bold" font-size="16.00">Personal</text>
+<text text-anchor="start" x="906" y="-828.2" font-family="Arial" font-weight="bold" font-size="16.00">Finance</text>
+<text text-anchor="start" x="891.5" y="-806.2" font-family="Arial" font-style="italic" font-size="16.00">1 credit hour</text>
+</g>
+<!-- MATH181 -->
+<g id="node10" class="node">
+<title>MATH181</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="1101,-871 1004,-871 1004,-785 1101,-785 1101,-871"/>
+<text text-anchor="start" x="1015" y="-855.2" font-family="Arial" font-weight="bold" font-size="16.00">MATH 181</text>
+<text text-anchor="start" x="1013.5" y="-830.2" font-family="Arial" font-size="16.00">Elementary</text>
+<text text-anchor="start" x="1008.5" y="-812.2" font-family="Arial" font-size="16.00">Probability &amp;</text>
+<text text-anchor="start" x="1020" y="-794.2" font-family="Arial" font-size="16.00">Statistics</text>
+</g>
+<!-- CS239 -->
+<g id="node17" class="node">
+<title>CS239</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="410.5,-614 312.5,-614 312.5,-504 410.5,-504 410.5,-614"/>
+<text text-anchor="start" x="334.5" y="-598.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 239</text>
+<text text-anchor="start" x="332" y="-573.2" font-family="Arial" font-size="16.00">Social &amp;</text>
+<text text-anchor="start" x="317.5" y="-555.2" font-family="Arial" font-size="16.00">Professional</text>
+<text text-anchor="start" x="338" y="-537.2" font-family="Arial" font-size="16.00">Issues</text>
+<text text-anchor="start" x="316.5" y="-514.2" font-family="Arial" font-style="italic" font-size="16.00">1 credit hour</text>
+</g>
+<!-- CS222&#45;&gt;CS239 -->
+<g id="edge11" class="edge">
+<title>CS222&#45;&gt;CS239</title>
+<path fill="none" stroke="black" stroke-width="2" d="M410.17,-664.95C404.38,-652.45 397.57,-637.78 390.92,-623.43"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="393.96,-621.67 386.58,-614.07 387.61,-624.61 393.96,-621.67"/>
+</g>
+<!-- CS495 -->
+<g id="node22" class="node">
+<title>CS495</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="534.5,-201 362.5,-201 362.5,-127 534.5,-127 534.5,-201"/>
+<text text-anchor="start" x="421.5" y="-185.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 495</text>
+<text text-anchor="start" x="366.5" y="-160.2" font-family="Arial" font-size="16.00">Software Engineering 1</text>
+<text text-anchor="start" x="387.5" y="-137.2" font-family="Arial" font-style="italic" font-size="16.00">BSU Core: Tier 3</text>
+</g>
+<!-- CS222&#45;&gt;CS495 -->
+<g id="edge16" class="edge">
+<title>CS222&#45;&gt;CS495</title>
+<path fill="none" stroke="black" stroke-width="2" d="M369.37,-697.15C280.53,-692.51 117.5,-669.13 117.5,-560 117.5,-560 117.5,-560 117.5,-292 117.5,-272.44 118.96,-264.08 133.5,-251 193.35,-197.15 283.74,-176.58 352.36,-168.94"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="352.74,-172.42 362.32,-167.91 352.01,-165.46 352.74,-172.42"/>
+</g>
+<!-- CS445 -->
+<g id="node26" class="node">
+<title>CS445</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="275,-446 146,-446 146,-378 275,-378 275,-446"/>
+<text text-anchor="start" x="184" y="-430.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 445</text>
+<text text-anchor="start" x="150.5" y="-405.2" font-family="Arial" font-size="16.00">Human Computer</text>
+<text text-anchor="start" x="173.5" y="-387.2" font-family="Arial" font-size="16.00">Interaction</text>
+</g>
+<!-- CS222&#45;&gt;CS445 -->
+<g id="edge23" class="edge">
+<title>CS222&#45;&gt;CS445</title>
+<path fill="none" stroke="black" stroke-width="2" d="M369.2,-668.11C346.6,-654.01 321.65,-635.53 303.5,-614 263.6,-566.69 237.11,-499.41 222.94,-455.98"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="226.22,-454.75 219.85,-446.28 219.55,-456.87 226.22,-454.75"/>
+</g>
+<!-- CS420 -->
+<g id="node27" class="node">
+<title>CS420</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="510,-327 387,-327 387,-259 510,-259 510,-327"/>
+<text text-anchor="start" x="422" y="-311.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 420</text>
+<text text-anchor="start" x="397.5" y="-286.2" font-family="Arial" font-size="16.00">Multi&#45;Tier Web</text>
+<text text-anchor="start" x="402.5" y="-268.2" font-family="Arial" font-size="16.00">Architectures</text>
+</g>
+<!-- CS222&#45;&gt;CS420 -->
+<g id="edge24" class="edge">
+<title>CS222&#45;&gt;CS420</title>
+<path fill="none" stroke="black" stroke-width="2" d="M444.8,-664.96C468.11,-622.93 506.02,-547.36 520.5,-477 529.37,-433.9 535.77,-419.27 520.5,-378 514.65,-362.19 504.35,-347.34 493.33,-334.66"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="495.73,-332.1 486.41,-327.05 490.55,-336.81 495.73,-332.1"/>
+</g>
+<!-- UCCT1SS -->
+<g id="node13" class="node">
+<title>UCCT1SS</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="954,-719 835,-719 835,-679 954,-679 954,-719"/>
+<text text-anchor="start" x="873.5" y="-703.2" font-family="Arial" font-weight="bold" font-size="16.00">Tier 1</text>
+<text text-anchor="start" x="839.5" y="-687.2" font-family="Arial" font-weight="bold" font-size="16.00">Social Science</text>
+</g>
+<!-- UCCT1SS&#45;&gt;UCCT2NSS -->
+<g id="edge15" class="edge">
+<title>UCCT1SS&#45;&gt;UCCT2NSS:ucct2nss_top</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="1,5" d="M888.37,-678.8C882.52,-658.92 874.37,-626.57 872.78,-596.2"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="876.27,-595.9 872.5,-586 869.27,-596.09 876.27,-595.9"/>
+<text text-anchor="middle" x="890" y="-635.8" font-family="Arial" font-size="14.00"> &#160;or</text>
+<polyline fill="none" stroke="black" points="900.5,-632 879.5,-632 879.12,-642.1 "/>
+</g>
+<!-- UCCT1HU -->
+<g id="node14" class="node">
+<title>UCCT1HU</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="1097,-719 1004,-719 1004,-679 1097,-679 1097,-719"/>
+<text text-anchor="start" x="1029.5" y="-703.2" font-family="Arial" font-weight="bold" font-size="16.00">Tier 1</text>
+<text text-anchor="start" x="1008.5" y="-687.2" font-family="Arial" font-weight="bold" font-size="16.00">Humanities</text>
+</g>
+<!-- UCCT2FDH -->
+<g id="node21" class="node">
+<title>UCCT2FDH</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="1151.5,-587 969.5,-587 969.5,-531 1151.5,-531 1151.5,-587"/>
+<text text-anchor="start" x="1039" y="-571.2" font-family="Arial" font-weight="bold" font-size="16.00">Tier 2</text>
+<text text-anchor="start" x="1016" y="-555.2" font-family="Arial" font-weight="bold" font-size="16.00">Fine Arts or</text>
+<text text-anchor="start" x="979.5" y="-539.2" font-family="Arial" font-weight="bold" font-size="16.00">Design or Humanities</text>
+</g>
+<!-- UCCT1HU&#45;&gt;UCCT2FDH -->
+<g id="edge13" class="edge">
+<title>UCCT1HU&#45;&gt;UCCT2FDH:ucct2fdh_top</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="1,5" d="M1053.29,-678.62C1055.94,-658.59 1059.65,-626.11 1060.37,-596.07"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="1063.87,-596.04 1060.5,-586 1056.88,-595.96 1063.87,-596.04"/>
+</g>
+<!-- UCCT1FA -->
+<g id="node15" class="node">
+<title>UCCT1FA</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="1192,-719 1115,-719 1115,-679 1192,-679 1192,-719"/>
+<text text-anchor="start" x="1132.5" y="-703.2" font-family="Arial" font-weight="bold" font-size="16.00">Tier 1</text>
+<text text-anchor="start" x="1119.5" y="-687.2" font-family="Arial" font-weight="bold" font-size="16.00">Fine Arts</text>
+</g>
+<!-- UCCT1FA&#45;&gt;UCCT2FDH -->
+<g id="edge12" class="edge">
+<title>UCCT1FA&#45;&gt;UCCT2FDH:ucct2fdh_top</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="1,5" d="M1132.4,-678.98C1108.6,-656.75 1072.01,-619.97 1062.71,-596.01"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="1066.07,-595.01 1060.5,-586 1059.24,-596.52 1066.07,-595.01"/>
+<text text-anchor="middle" x="1109" y="-635.8" font-family="Arial" font-size="14.00"> &#160;or</text>
+<polyline fill="none" stroke="black" points="1119.5,-632 1098.5,-632 1100.4,-647.21 "/>
+</g>
+<!-- CS239&#45;&gt;CS495 -->
+<!-- CS411 -->
+<g id="node25" class="node">
+<title>CS411</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="393.5,-446 293.5,-446 293.5,-378 393.5,-378 393.5,-446"/>
+<text text-anchor="start" x="316.5" y="-430.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 411</text>
+<text text-anchor="start" x="320.5" y="-405.2" font-family="Arial" font-size="16.00">Mobile</text>
+<text text-anchor="start" x="297.5" y="-387.2" font-family="Arial" font-size="16.00">Development</text>
+</g>
+<!-- CS239&#45;&gt;CS411 -->
+<!-- CS239&#45;&gt;CS445 -->
+<!-- COMM210 -->
+<g id="node18" class="node">
+<title>COMM210</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="89,-593 0,-593 0,-525 89,-525 89,-593"/>
+<text text-anchor="start" x="4.5" y="-577.2" font-family="Arial" font-weight="bold" font-size="16.00">COMM 210</text>
+<text text-anchor="start" x="23.5" y="-552.2" font-family="Arial" font-size="16.00">Public</text>
+<text text-anchor="start" x="12.5" y="-534.2" font-family="Arial" font-size="16.00">Speaking</text>
+</g>
+<!-- COMM210&#45;&gt;CS495 -->
+<g id="edge19" class="edge">
+<title>COMM210&#45;&gt;CS495</title>
+<path fill="none" stroke="black" stroke-width="2" d="M39.86,-524.84C32.88,-460.5 27.66,-318.2 103.5,-240 137.48,-204.96 262.73,-184.49 352.53,-174.02"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="352.93,-177.5 362.47,-172.89 352.13,-170.54 352.93,-177.5"/>
+</g>
+<!-- Permission -->
+<g id="node20" class="node">
+<title>Permission</title>
+<ellipse fill="none" stroke="blue" stroke-width="2" cx="586.5" cy="-293" rx="58.88" ry="25.41"/>
+<text text-anchor="middle" x="586.5" y="-298.2" font-family="Arial" font-size="16.00">Permission:</text>
+<text text-anchor="middle" x="586.5" y="-280.2" font-family="Arial" font-size="16.00">Final Year</text>
+</g>
+<!-- Permission&#45;&gt;CS495 -->
+<g id="edge18" class="edge">
+<title>Permission&#45;&gt;CS495</title>
+<path fill="none" stroke="black" stroke-width="2" d="M562.15,-269.59C543.65,-252.57 517.66,-228.65 495.21,-207.98"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="497.47,-205.31 487.74,-201.11 492.73,-210.46 497.47,-205.31"/>
+</g>
+<!-- CS498 -->
+<g id="node23" class="node">
+<title>CS498</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="552,-90 345,-90 345,-16 552,-16 552,-90"/>
+<text text-anchor="start" x="422" y="-74.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 498</text>
+<text text-anchor="start" x="367" y="-49.2" font-family="Arial" font-size="16.00">Software Engineering 2</text>
+<text text-anchor="start" x="349.5" y="-26.2" font-family="Arial" font-style="italic" font-size="16.00">BSU Core: Writing Intensive</text>
+</g>
+<!-- CS495&#45;&gt;CS498 -->
+<g id="edge20" class="edge">
+<title>CS495&#45;&gt;CS498</title>
+<path fill="none" stroke="black" stroke-width="2" d="M448.5,-126.7C448.5,-118.25 448.5,-109.13 448.5,-100.3"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="452,-100.14 448.5,-90.14 445,-100.14 452,-100.14"/>
+</g>
+<!-- CS410 -->
+<g id="node24" class="node">
+<title>CS410</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="511.5,-446 411.5,-446 411.5,-378 511.5,-378 511.5,-446"/>
+<text text-anchor="start" x="434.5" y="-430.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 410</text>
+<text text-anchor="start" x="444.5" y="-405.2" font-family="Arial" font-size="16.00">Web</text>
+<text text-anchor="start" x="415.5" y="-387.2" font-family="Arial" font-size="16.00">Development</text>
+</g>
+<!-- CS410&#45;&gt;CS420 -->
+<g id="edge25" class="edge">
+<title>CS410&#45;&gt;CS420:top_port</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="5,2" d="M454.59,-377.65C452.44,-365.08 450.46,-350.39 449.76,-336.21"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="453.25,-335.91 449.5,-326 446.26,-336.09 453.25,-335.91"/>
+<text text-anchor="middle" x="458" y="-348.8" font-family="Arial" font-size="14.00">or</text>
+</g>
+<!-- CS411&#45;&gt;CS420 -->
+<g id="edge26" class="edge">
+<title>CS411&#45;&gt;CS420:top_port</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="5,2" d="M393.71,-381.65C415.75,-367.33 438.45,-350.14 446.47,-335.83"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="449.9,-336.59 449.5,-326 443.21,-334.52 449.9,-336.59"/>
+</g>
+<!-- CS420&#45;&gt;CS495 -->
+</g>
+</svg>
+
+
+
+
+
+
+<h2>Cybersecurity and Secure Software Design Concentration</h2>
+
+Builds on our current Cybersecurity Minor.
+
+
+
+<svg
+ viewBox="0.00 0.00 1174.50 1087.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 1083)">
+<title>Cyber_Secure</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-1083 1170.5,-1083 1170.5,4 -4,4"/>
+
+<g id="clust5" class="cluster">
+<title>cluster_softeng</title>
+<polygon fill="none" stroke="black" stroke-width="2" points="271,-8 271,-235 495,-235 495,-8 271,-8"/>
+<text text-anchor="middle" x="383" y="-218.2" font-family="Arial" font-size="16.00">Senior Capstone Sequence</text>
+</g>
+<g id="clust6" class="cluster">
+<title>cluster_cyber_secure</title>
+<polygon fill="none" stroke="black" stroke-width="2" points="146,-254 146,-487 523,-487 523,-254 146,-254"/>
+<text text-anchor="middle" x="334.5" y="-470.2" font-family="Arial" font-size="16.00">Required on Concentration</text>
+</g>
+<!-- CS120 -->
+<g id="node1" class="node">
+<title>CS120</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="420,-1025 314,-1025 314,-933 420,-933 420,-1025"/>
+<text text-anchor="start" x="340" y="-1009.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 120</text>
+<text text-anchor="start" x="333" y="-984.2" font-family="Arial" font-size="16.00">Computer</text>
+<text text-anchor="start" x="331.5" y="-966.2" font-family="Arial" font-size="16.00">Science 1</text>
+<text text-anchor="start" x="318" y="-943.2" font-family="Arial" font-style="italic" font-size="16.00">4 credit hours</text>
+</g>
+<!-- CS121 -->
+<g id="node5" class="node">
+<title>CS121</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="308,-884 202,-884 202,-792 308,-792 308,-884"/>
+<text text-anchor="start" x="228" y="-868.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 121</text>
+<text text-anchor="start" x="221" y="-843.2" font-family="Arial" font-size="16.00">Computer</text>
+<text text-anchor="start" x="219.5" y="-825.2" font-family="Arial" font-size="16.00">Science 2</text>
+<text text-anchor="start" x="206" y="-802.2" font-family="Arial" font-style="italic" font-size="16.00">4 credit hours</text>
+</g>
+<!-- CS120&#45;&gt;CS121 -->
+<g id="edge1" class="edge">
+<title>CS120&#45;&gt;CS121</title>
+<path fill="none" stroke="black" stroke-width="2" d="M330.64,-932.87C320.17,-919.88 308.66,-905.59 297.84,-892.17"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="300.56,-889.97 291.56,-884.38 295.11,-894.36 300.56,-889.97"/>
+</g>
+<!-- CS124 -->
+<g id="node6" class="node">
+<title>CS124</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="407.5,-872 326.5,-872 326.5,-804 407.5,-804 407.5,-872"/>
+<text text-anchor="start" x="340.5" y="-856.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 124</text>
+<text text-anchor="start" x="337.5" y="-831.2" font-family="Arial" font-size="16.00">Discrete</text>
+<text text-anchor="start" x="331" y="-813.2" font-family="Arial" font-size="16.00">Structures</text>
+</g>
+<!-- CS120&#45;&gt;CS124 -->
+<g id="edge2" class="edge">
+<title>CS120&#45;&gt;CS124</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="5,2" d="M367,-932.87C367,-916.61 367,-898.32 367,-882.23"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="370.5,-882.02 367,-872.02 363.5,-882.02 370.5,-882.02"/>
+<text text-anchor="middle" x="413" y="-905.4" font-family="Arial" font-size="12.00"> prereq or parallel</text>
+<polyline fill="none" stroke="black" points="459,-902 367,-902 367,-908.3 "/>
+</g>
+<!-- CS203 -->
+<g id="node24" class="node">
+<title>CS203</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="515,-453 439,-453 439,-367 515,-367 515,-453"/>
+<text text-anchor="start" x="450" y="-437.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 203</text>
+<text text-anchor="start" x="452" y="-412.2" font-family="Arial" font-size="16.00">Intro to</text>
+<text text-anchor="start" x="443" y="-394.2" font-family="Arial" font-size="16.00">Computer</text>
+<text text-anchor="start" x="448" y="-376.2" font-family="Arial" font-size="16.00">Security</text>
+</g>
+<!-- CS120&#45;&gt;CS203 -->
+<g id="edge21" class="edge">
+<title>CS120&#45;&gt;CS203</title>
+<path fill="none" stroke="black" stroke-width="2" d="M420.32,-939.25C423.57,-937.1 426.81,-935 430,-933 444.16,-924.13 453.2,-928.53 463,-915 483.15,-887.18 477,-873.35 477,-839 477,-839 477,-839 477,-568 477,-533.1 477,-493.84 477,-463.31"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="480.5,-463.31 477,-453.31 473.5,-463.31 480.5,-463.31"/>
+</g>
+<!-- HIST150 -->
+<g id="node2" class="node">
+<title>HIST150</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="531.5,-1013 438.5,-1013 438.5,-945 531.5,-945 531.5,-1013"/>
+<text text-anchor="start" x="452" y="-997.2" font-family="Arial" font-weight="bold" font-size="16.00">HIST 150</text>
+<text text-anchor="start" x="443" y="-972.2" font-family="Arial" font-size="16.00">The West in</text>
+<text text-anchor="start" x="451.5" y="-954.2" font-family="Arial" font-size="16.00">the World</text>
+</g>
+<!-- UCCPFW -->
+<g id="node3" class="node">
+<title>UCCPFW</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="696.5,-1011 549.5,-1011 549.5,-947 696.5,-947 696.5,-1011"/>
+<text text-anchor="start" x="591.5" y="-995.2" font-family="Arial" font-weight="bold" font-size="16.00">Physcial</text>
+<text text-anchor="start" x="554" y="-979.2" font-family="Arial" font-weight="bold" font-size="16.00">Fitness / Wellness</text>
+<text text-anchor="start" x="574.5" y="-957.2" font-family="Arial" font-style="italic" font-size="16.00">2 credit hours</text>
+</g>
+<!-- ENG103 -->
+<g id="node4" class="node">
+<title>ENG103</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="191.5,-1004 54.5,-1004 54.5,-954 191.5,-954 191.5,-1004"/>
+<text text-anchor="start" x="91" y="-988.2" font-family="Arial" font-weight="bold" font-size="16.00">ENG 103</text>
+<text text-anchor="start" x="59" y="-963.2" font-family="Arial" font-size="16.00">Rhetoric &amp; Writing</text>
+</g>
+<!-- ENG104 -->
+<g id="node7" class="node">
+<title>ENG104</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="166.5,-879 79.5,-879 79.5,-797 166.5,-797 166.5,-879"/>
+<text text-anchor="start" x="91" y="-863.2" font-family="Arial" font-weight="bold" font-size="16.00">ENG 104</text>
+<text text-anchor="start" x="100" y="-847.2" font-family="Arial" font-size="16.00">or </text>
+<text text-anchor="start" x="119" y="-847.2" font-family="Arial" font-weight="bold" font-size="16.00">114</text>
+<text text-anchor="start" x="84" y="-824.2" font-family="Arial" font-size="16.00">Composing</text>
+<text text-anchor="start" x="89" y="-806.2" font-family="Arial" font-size="16.00">Research</text>
+</g>
+<!-- ENG103&#45;&gt;ENG104 -->
+<g id="edge9" class="edge">
+<title>ENG103&#45;&gt;ENG104</title>
+<path fill="none" stroke="black" stroke-width="2" d="M123,-953.79C123,-936.06 123,-911.37 123,-889.43"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="126.5,-889.25 123,-879.25 119.5,-889.25 126.5,-889.25"/>
+</g>
+<!-- CS222 -->
+<g id="node11" class="node">
+<title>CS222</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="227,-743 115,-743 115,-675 227,-675 227,-743"/>
+<text text-anchor="start" x="144" y="-727.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 222</text>
+<text text-anchor="start" x="136" y="-702.2" font-family="Arial" font-size="16.00">Advanced</text>
+<text text-anchor="start" x="125" y="-684.2" font-family="Arial" font-size="16.00">Programming</text>
+</g>
+<!-- CS121&#45;&gt;CS222 -->
+<g id="edge7" class="edge">
+<title>CS121&#45;&gt;CS222:cs222_top</title>
+<path fill="none" stroke="black" stroke-width="2" d="M238.21,-791.65C232.47,-780.57 225.13,-769.47 216,-761 203.57,-749.46 183.1,-757.61 174.73,-751.37"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="177.95,-749.99 171,-742 171.45,-752.59 177.95,-749.99"/>
+</g>
+<!-- CS224 -->
+<g id="node12" class="node">
+<title>CS224</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="448.5,-734 355.5,-734 355.5,-684 448.5,-684 448.5,-734"/>
+<text text-anchor="start" x="375.5" y="-718.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 224</text>
+<text text-anchor="start" x="366" y="-693.2" font-family="Arial" font-size="16.00">Algorithms</text>
+</g>
+<!-- CS121&#45;&gt;CS224 -->
+<g id="edge4" class="edge">
+<title>CS121&#45;&gt;CS224:cs224_top</title>
+<path fill="none" stroke="black" stroke-width="2" d="M308.24,-798.9C311.54,-796.56 314.81,-794.24 318,-792 352.52,-767.7 395.29,-777.05 402.07,-743.17"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="405.58,-743.28 403,-733 398.61,-742.64 405.58,-743.28"/>
+</g>
+<!-- CS230 -->
+<g id="node16" class="node">
+<title>CS230</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="366.5,-612 255.5,-612 255.5,-526 366.5,-526 366.5,-612"/>
+<text text-anchor="start" x="284.5" y="-596.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 230</text>
+<text text-anchor="start" x="277.5" y="-571.2" font-family="Arial" font-size="16.00">Computer</text>
+<text text-anchor="start" x="260" y="-553.2" font-family="Arial" font-size="16.00">Organization &amp;</text>
+<text text-anchor="start" x="269" y="-535.2" font-family="Arial" font-size="16.00">Architecture</text>
+</g>
+<!-- CS121&#45;&gt;CS230 -->
+<g id="edge3" class="edge">
+<title>CS121&#45;&gt;CS230</title>
+<path fill="none" stroke="black" stroke-width="2" d="M264.5,-791.71C274.34,-744.8 289.69,-671.59 300.04,-622.26"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="303.47,-622.93 302.1,-612.42 296.62,-621.49 303.47,-622.93"/>
+</g>
+<!-- CS124&#45;&gt;CS222 -->
+<g id="edge8" class="edge">
+<title>CS124&#45;&gt;CS222:cs222_top</title>
+<path fill="none" stroke="black" stroke-width="2" d="M333.64,-803.98C328.32,-799.61 322.69,-795.46 317,-792 283.73,-771.73 271.92,-773.44 235,-761 211.06,-752.93 181.48,-766.34 173.23,-752.18"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="176.56,-751.02 171,-742 169.72,-752.52 176.56,-751.02"/>
+</g>
+<!-- CS124&#45;&gt;CS224 -->
+<g id="edge5" class="edge">
+<title>CS124&#45;&gt;CS224:cs224_top</title>
+<path fill="none" stroke="black" stroke-width="2" d="M384.79,-803.81C392.62,-786.59 400.5,-764.7 402.51,-743.18"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="406.02,-743.16 403,-733 399.02,-742.82 406.02,-743.16"/>
+</g>
+<!-- CS124&#45;&gt;CS230 -->
+<g id="edge6" class="edge">
+<title>CS124&#45;&gt;CS230</title>
+<path fill="none" stroke="black" stroke-width="2" d="M359.93,-803.95C356.09,-785.93 351.26,-763.25 347,-743 338.46,-702.42 328.9,-656.47 321.78,-622.13"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="325.21,-621.4 319.75,-612.31 318.35,-622.82 325.21,-621.4"/>
+</g>
+<!-- ENG104&#45;&gt;CS222 -->
+<g id="edge10" class="edge">
+<title>ENG104&#45;&gt;CS222</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="5,2" d="M118.18,-796.89C118.15,-784.98 119.56,-772.16 124,-761 125.29,-757.77 126.88,-754.62 128.7,-751.57"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="131.61,-753.51 134.33,-743.28 125.82,-749.58 131.61,-753.51"/>
+<text text-anchor="middle" x="170" y="-764.4" font-family="Arial" font-size="12.00"> prereq or parallel</text>
+<polyline fill="none" stroke="black" points="216,-761 124,-761 128.69,-751.59 "/>
+</g>
+<!-- UCCT1NS -->
+<g id="node8" class="node">
+<title>UCCT1NS</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="935,-882 809,-882 809,-794 935,-794 935,-882"/>
+<text text-anchor="start" x="850.5" y="-866.2" font-family="Arial" font-weight="bold" font-size="16.00">Tier 1</text>
+<text text-anchor="start" x="813" y="-850.2" font-family="Arial" font-weight="bold" font-size="16.00">Natural Science</text>
+<text text-anchor="start" x="814" y="-828.2" font-family="Arial" font-style="italic" font-size="16.00">CS Lab Science</text>
+<text text-anchor="start" x="814" y="-804.2" font-family="Arial" font-style="italic" font-size="16.00">3–5 credit hours</text>
+</g>
+<!-- UCCT2NSS -->
+<g id="node19" class="node">
+<title>UCCT2NSS</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="870.5,-597 739.5,-597 739.5,-541 870.5,-541 870.5,-597"/>
+<text text-anchor="start" x="784" y="-581.2" font-family="Arial" font-weight="bold" font-size="16.00">Tier 2</text>
+<text text-anchor="start" x="768.5" y="-565.2" font-family="Arial" font-weight="bold" font-size="16.00">Natural or</text>
+<text text-anchor="start" x="750" y="-549.2" font-family="Arial" font-weight="bold" font-size="16.00">Social Science</text>
+</g>
+<!-- UCCT1NS&#45;&gt;UCCT2NSS -->
+<g id="edge14" class="edge">
+<title>UCCT1NS&#45;&gt;UCCT2NSS:ucct2nss_top</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="1,5" d="M871.81,-793.98C870.52,-760.7 866.18,-713.89 853,-675 841.07,-639.78 811.92,-637.07 806.78,-606.07"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="810.26,-605.7 806,-596 803.28,-606.24 810.26,-605.7"/>
+</g>
+<!-- UCCPFIN -->
+<g id="node9" class="node">
+<title>UCCPFIN</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="1051,-870 953,-870 953,-806 1051,-806 1051,-870"/>
+<text text-anchor="start" x="968.5" y="-854.2" font-family="Arial" font-weight="bold" font-size="16.00">Personal</text>
+<text text-anchor="start" x="971.5" y="-838.2" font-family="Arial" font-weight="bold" font-size="16.00">Finance</text>
+<text text-anchor="start" x="957" y="-816.2" font-family="Arial" font-style="italic" font-size="16.00">1 credit hour</text>
+</g>
+<!-- MATH181 -->
+<g id="node10" class="node">
+<title>MATH181</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="1166.5,-881 1069.5,-881 1069.5,-795 1166.5,-795 1166.5,-881"/>
+<text text-anchor="start" x="1080.5" y="-865.2" font-family="Arial" font-weight="bold" font-size="16.00">MATH 181</text>
+<text text-anchor="start" x="1079" y="-840.2" font-family="Arial" font-size="16.00">Elementary</text>
+<text text-anchor="start" x="1074" y="-822.2" font-family="Arial" font-size="16.00">Probability &amp;</text>
+<text text-anchor="start" x="1085.5" y="-804.2" font-family="Arial" font-size="16.00">Statistics</text>
+</g>
+<!-- CS239 -->
+<g id="node17" class="node">
+<title>CS239</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="98,-624 0,-624 0,-514 98,-514 98,-624"/>
+<text text-anchor="start" x="22" y="-608.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 239</text>
+<text text-anchor="start" x="19.5" y="-583.2" font-family="Arial" font-size="16.00">Social &amp;</text>
+<text text-anchor="start" x="5" y="-565.2" font-family="Arial" font-size="16.00">Professional</text>
+<text text-anchor="start" x="25.5" y="-547.2" font-family="Arial" font-size="16.00">Issues</text>
+<text text-anchor="start" x="4" y="-524.2" font-family="Arial" font-style="italic" font-size="16.00">1 credit hour</text>
+</g>
+<!-- CS222&#45;&gt;CS239 -->
+<g id="edge11" class="edge">
+<title>CS222&#45;&gt;CS239</title>
+<path fill="none" stroke="black" stroke-width="2" d="M130.17,-674.9C123.86,-669.17 117.58,-663.09 112,-657 105.03,-649.4 98.12,-641.02 91.59,-632.55"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="94.27,-630.3 85.44,-624.43 88.69,-634.52 94.27,-630.3"/>
+</g>
+<!-- CS495 -->
+<g id="node22" class="node">
+<title>CS495</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="469,-201 297,-201 297,-127 469,-127 469,-201"/>
+<text text-anchor="start" x="356" y="-185.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 495</text>
+<text text-anchor="start" x="301" y="-160.2" font-family="Arial" font-size="16.00">Software Engineering 1</text>
+<text text-anchor="start" x="322" y="-137.2" font-family="Arial" font-style="italic" font-size="16.00">BSU Core: Tier 3</text>
+</g>
+<!-- CS222&#45;&gt;CS495 -->
+<g id="edge16" class="edge">
+<title>CS222&#45;&gt;CS495</title>
+<path fill="none" stroke="black" stroke-width="2" d="M153.73,-674.95C141.04,-647.59 126,-607.3 126,-570 126,-570 126,-570 126,-295 126,-220.26 213.61,-188.48 286.53,-174.97"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="287.46,-178.36 296.71,-173.19 286.25,-171.47 287.46,-178.36"/>
+</g>
+<!-- CS418 -->
+<g id="node27" class="node">
+<title>CS418</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="231.5,-444 154.5,-444 154.5,-376 231.5,-376 231.5,-444"/>
+<text text-anchor="start" x="166.5" y="-428.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 418</text>
+<text text-anchor="start" x="159" y="-403.2" font-family="Arial" font-size="16.00">Database</text>
+<text text-anchor="start" x="169" y="-385.2" font-family="Arial" font-size="16.00">Design</text>
+</g>
+<!-- CS222&#45;&gt;CS418 -->
+<g id="edge24" class="edge">
+<title>CS222&#45;&gt;CS418</title>
+<path fill="none" stroke="black" stroke-width="2" d="M173.46,-674.79C177.45,-620.96 185.32,-514.63 189.76,-454.72"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="193.27,-454.68 190.52,-444.45 186.29,-454.16 193.27,-454.68"/>
+</g>
+<!-- CS419 -->
+<g id="node28" class="node">
+<title>CS419</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="326.5,-444 249.5,-444 249.5,-376 326.5,-376 326.5,-444"/>
+<text text-anchor="start" x="261.5" y="-428.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 419</text>
+<text text-anchor="start" x="254" y="-403.2" font-family="Arial" font-size="16.00">Operating</text>
+<text text-anchor="start" x="258" y="-385.2" font-family="Arial" font-size="16.00">Systems</text>
+</g>
+<!-- CS222&#45;&gt;CS419 -->
+<g id="edge25" class="edge">
+<title>CS222&#45;&gt;CS419</title>
+<path fill="none" stroke="black" stroke-width="2" d="M183.99,-674.68C199.08,-636.02 224.75,-570.35 247,-514 254.83,-494.18 263.55,-472.24 270.93,-453.72"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="274.21,-454.97 274.66,-444.38 267.7,-452.37 274.21,-454.97"/>
+</g>
+<!-- CS224&#45;&gt;CS203 -->
+<!-- CS416 -->
+<g id="node26" class="node">
+<title>CS416</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="421,-444 345,-444 345,-376 421,-376 421,-444"/>
+<text text-anchor="start" x="356" y="-428.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 416</text>
+<text text-anchor="start" x="349" y="-403.2" font-family="Arial" font-size="16.00">Computer</text>
+<text text-anchor="start" x="350" y="-385.2" font-family="Arial" font-size="16.00">Networks</text>
+</g>
+<!-- CS224&#45;&gt;CS416 -->
+<g id="edge23" class="edge">
+<title>CS224&#45;&gt;CS416</title>
+<path fill="none" stroke="black" stroke-width="2" d="M400.46,-683.95C397.26,-633.84 389.83,-517.7 385.77,-454.26"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="389.25,-453.93 385.12,-444.18 382.27,-454.38 389.25,-453.93"/>
+</g>
+<!-- UCCT1SS -->
+<g id="node13" class="node">
+<title>UCCT1SS</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="843.5,-729 724.5,-729 724.5,-689 843.5,-689 843.5,-729"/>
+<text text-anchor="start" x="763" y="-713.2" font-family="Arial" font-weight="bold" font-size="16.00">Tier 1</text>
+<text text-anchor="start" x="729" y="-697.2" font-family="Arial" font-weight="bold" font-size="16.00">Social Science</text>
+</g>
+<!-- UCCT1SS&#45;&gt;UCCT2NSS -->
+<g id="edge15" class="edge">
+<title>UCCT1SS&#45;&gt;UCCT2NSS:ucct2nss_top</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="1,5" d="M790.13,-688.8C795.98,-668.92 804.13,-636.57 805.72,-606.2"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="809.23,-606.09 806,-596 802.23,-605.9 809.23,-606.09"/>
+<text text-anchor="middle" x="811.5" y="-645.8" font-family="Arial" font-size="14.00"> &#160;or</text>
+<polyline fill="none" stroke="black" points="822,-642 801,-642 800.34,-647.36 "/>
+</g>
+<!-- UCCT1HU -->
+<g id="node14" class="node">
+<title>UCCT1HU</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="1090.5,-729 997.5,-729 997.5,-689 1090.5,-689 1090.5,-729"/>
+<text text-anchor="start" x="1023" y="-713.2" font-family="Arial" font-weight="bold" font-size="16.00">Tier 1</text>
+<text text-anchor="start" x="1002" y="-697.2" font-family="Arial" font-weight="bold" font-size="16.00">Humanities</text>
+</g>
+<!-- UCCT2FDH -->
+<g id="node21" class="node">
+<title>UCCT2FDH</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="1114,-597 932,-597 932,-541 1114,-541 1114,-597"/>
+<text text-anchor="start" x="1001.5" y="-581.2" font-family="Arial" font-weight="bold" font-size="16.00">Tier 2</text>
+<text text-anchor="start" x="978.5" y="-565.2" font-family="Arial" font-weight="bold" font-size="16.00">Fine Arts or</text>
+<text text-anchor="start" x="942" y="-549.2" font-family="Arial" font-weight="bold" font-size="16.00">Design or Humanities</text>
+</g>
+<!-- UCCT1HU&#45;&gt;UCCT2FDH -->
+<g id="edge13" class="edge">
+<title>UCCT1HU&#45;&gt;UCCT2FDH:ucct2fdh_top</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="1,5" d="M1038.15,-688.78C1032.57,-668.88 1024.79,-636.52 1023.26,-606.19"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="1026.76,-605.91 1023,-596 1019.76,-606.09 1026.76,-605.91"/>
+</g>
+<!-- UCCT1FA -->
+<g id="node15" class="node">
+<title>UCCT1FA</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="979.5,-729 902.5,-729 902.5,-689 979.5,-689 979.5,-729"/>
+<text text-anchor="start" x="920" y="-713.2" font-family="Arial" font-weight="bold" font-size="16.00">Tier 1</text>
+<text text-anchor="start" x="907" y="-697.2" font-family="Arial" font-weight="bold" font-size="16.00">Fine Arts</text>
+</g>
+<!-- UCCT1FA&#45;&gt;UCCT2FDH -->
+<g id="edge12" class="edge">
+<title>UCCT1FA&#45;&gt;UCCT2FDH:ucct2fdh_top</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="1,5" d="M959.61,-688.68C980.49,-666.26 1012.56,-629.37 1020.94,-605.99"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="1024.41,-606.5 1023,-596 1017.55,-605.09 1024.41,-606.5"/>
+<text text-anchor="middle" x="1008.5" y="-645.8" font-family="Arial" font-size="14.00"> &#160;or</text>
+<polyline fill="none" stroke="black" points="1019,-642 998,-642 999,-642.44 "/>
+</g>
+<!-- CS230&#45;&gt;CS203 -->
+<!-- CS230&#45;&gt;CS416 -->
+<!-- CS230&#45;&gt;CS418 -->
+<!-- CS230&#45;&gt;CS419 -->
+<g id="edge26" class="edge">
+<title>CS230&#45;&gt;CS419</title>
+<path fill="none" stroke="black" stroke-width="2" d="M304.84,-525.93C301.58,-503.71 297.6,-476.5 294.32,-454.13"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="297.78,-453.62 292.87,-444.23 290.86,-454.63 297.78,-453.62"/>
+</g>
+<!-- CS239&#45;&gt;CS495 -->
+<!-- COMM210 -->
+<g id="node18" class="node">
+<title>COMM210</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="721.5,-603 632.5,-603 632.5,-535 721.5,-535 721.5,-603"/>
+<text text-anchor="start" x="637" y="-587.2" font-family="Arial" font-weight="bold" font-size="16.00">COMM 210</text>
+<text text-anchor="start" x="656" y="-562.2" font-family="Arial" font-size="16.00">Public</text>
+<text text-anchor="start" x="645" y="-544.2" font-family="Arial" font-size="16.00">Speaking</text>
+</g>
+<!-- COMM210&#45;&gt;CS495 -->
+<g id="edge19" class="edge">
+<title>COMM210&#45;&gt;CS495</title>
+<path fill="none" stroke="black" stroke-width="2" d="M685.96,-534.97C700.68,-472.78 722.38,-337.11 658,-254 616.01,-199.79 540.49,-178.1 479.21,-169.65"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="479.48,-166.16 469.11,-168.36 478.59,-173.1 479.48,-166.16"/>
+</g>
+<!-- Permission -->
+<g id="node20" class="node">
+<title>Permission</title>
+<ellipse fill="none" stroke="blue" stroke-width="2" cx="590" cy="-296" rx="58.88" ry="25.41"/>
+<text text-anchor="middle" x="590" y="-301.2" font-family="Arial" font-size="16.00">Permission:</text>
+<text text-anchor="middle" x="590" y="-283.2" font-family="Arial" font-size="16.00">Final Year</text>
+</g>
+<!-- Permission&#45;&gt;CS495 -->
+<g id="edge18" class="edge">
+<title>Permission&#45;&gt;CS495</title>
+<path fill="none" stroke="black" stroke-width="2" d="M558.69,-274.42C548.6,-267.84 537.36,-260.57 527,-254 502.24,-238.3 474.92,-221.32 450.78,-206.44"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="452.4,-203.33 442.05,-201.06 448.73,-209.29 452.4,-203.33"/>
+</g>
+<!-- CS498 -->
+<g id="node23" class="node">
+<title>CS498</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="486.5,-90 279.5,-90 279.5,-16 486.5,-16 486.5,-90"/>
+<text text-anchor="start" x="356.5" y="-74.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 498</text>
+<text text-anchor="start" x="301.5" y="-49.2" font-family="Arial" font-size="16.00">Software Engineering 2</text>
+<text text-anchor="start" x="284" y="-26.2" font-family="Arial" font-style="italic" font-size="16.00">BSU Core: Writing Intensive</text>
+</g>
+<!-- CS495&#45;&gt;CS498 -->
+<g id="edge20" class="edge">
+<title>CS495&#45;&gt;CS498</title>
+<path fill="none" stroke="black" stroke-width="2" d="M383,-126.7C383,-118.25 383,-109.13 383,-100.3"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="386.5,-100.14 383,-90.14 379.5,-100.14 386.5,-100.14"/>
+</g>
+<!-- CS249 -->
+<g id="node25" class="node">
+<title>CS249</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="513,-321 435,-321 435,-271 513,-271 513,-321"/>
+<text text-anchor="start" x="447" y="-305.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 249</text>
+<text text-anchor="start" x="439" y="-280.2" font-family="Arial" font-size="16.00">Forensics</text>
+</g>
+<!-- CS203&#45;&gt;CS249 -->
+<g id="edge22" class="edge">
+<title>CS203&#45;&gt;CS249</title>
+<path fill="none" stroke="black" stroke-width="2" d="M475.87,-366.98C475.56,-355.22 475.22,-342.58 474.92,-331.32"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="478.41,-330.93 474.64,-321.03 471.41,-331.12 478.41,-330.93"/>
+</g>
+<!-- CS447 -->
+<g id="node29" class="node">
+<title>CS447</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="416,-330 350,-330 350,-262 416,-262 416,-330"/>
+<text text-anchor="start" x="356" y="-314.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 447</text>
+<text text-anchor="start" x="354" y="-289.2" font-family="Arial" font-size="16.00">Network</text>
+<text text-anchor="start" x="354" y="-271.2" font-family="Arial" font-size="16.00">Security</text>
+</g>
+<!-- CS416&#45;&gt;CS447 -->
+<g id="edge27" class="edge">
+<title>CS416&#45;&gt;CS447</title>
+<path fill="none" stroke="black" stroke-width="2" d="M383,-375.7C383,-364.63 383,-352.13 383,-340.41"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="386.5,-340.37 383,-330.37 379.5,-340.37 386.5,-340.37"/>
+</g>
+<!-- CS447&#45;&gt;CS495 -->
+</g>
+</svg>
+
+
+
+
+
+
+
+
+<h2>Data Analytics and Machine Learning Concentration</h2>
+
+A Computer Science centered program involving both Data Analytics and Machine Learning.
+
+<svg
+ viewBox="0.00 0.00 1154.09 1058.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 1054)">
+<title>Data_ML</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-1054 1150.09,-1054 1150.09,4 -4,4"/>
+
+<g id="clust6" class="cluster">
+<title>cluster_required</title>
+<polygon fill="none" stroke="black" stroke-width="2" points="79.09,-254 79.09,-469 471.09,-469 471.09,-254 79.09,-254"/>
+<text text-anchor="middle" x="275.09" y="-452.2" font-family="Arial" font-size="16.00">Required on Concentration</text>
+</g>
+<g id="clust5" class="cluster">
+<title>cluster_softeng</title>
+<polygon fill="none" stroke="black" stroke-width="2" points="417.09,-8 417.09,-235 641.09,-235 641.09,-8 417.09,-8"/>
+<text text-anchor="middle" x="529.09" y="-218.2" font-family="Arial" font-size="16.00">Senior Capstone Sequence</text>
+</g>
+<!-- CS120 -->
+<g id="node1" class="node">
+<title>CS120</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="264.09,-1007 158.09,-1007 158.09,-915 264.09,-915 264.09,-1007"/>
+<text text-anchor="start" x="184.09" y="-991.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 120</text>
+<text text-anchor="start" x="177.09" y="-966.2" font-family="Arial" font-size="16.00">Computer</text>
+<text text-anchor="start" x="175.59" y="-948.2" font-family="Arial" font-size="16.00">Science 1</text>
+<text text-anchor="start" x="162.09" y="-925.2" font-family="Arial" font-style="italic" font-size="16.00">4 credit hours</text>
+</g>
+<!-- CS121 -->
+<g id="node5" class="node">
+<title>CS121</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="264.09,-866 158.09,-866 158.09,-774 264.09,-774 264.09,-866"/>
+<text text-anchor="start" x="184.09" y="-850.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 121</text>
+<text text-anchor="start" x="177.09" y="-825.2" font-family="Arial" font-size="16.00">Computer</text>
+<text text-anchor="start" x="175.59" y="-807.2" font-family="Arial" font-size="16.00">Science 2</text>
+<text text-anchor="start" x="162.09" y="-784.2" font-family="Arial" font-style="italic" font-size="16.00">4 credit hours</text>
+</g>
+<!-- CS120&#45;&gt;CS121 -->
+<g id="edge1" class="edge">
+<title>CS120&#45;&gt;CS121</title>
+<path fill="none" stroke="black" stroke-width="2" d="M211.09,-914.87C211.09,-902.61 211.09,-889.19 211.09,-876.43"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="214.59,-876.38 211.09,-866.38 207.59,-876.38 214.59,-876.38"/>
+</g>
+<!-- CS124 -->
+<g id="node6" class="node">
+<title>CS124</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="363.59,-854 282.59,-854 282.59,-786 363.59,-786 363.59,-854"/>
+<text text-anchor="start" x="296.59" y="-838.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 124</text>
+<text text-anchor="start" x="293.59" y="-813.2" font-family="Arial" font-size="16.00">Discrete</text>
+<text text-anchor="start" x="287.09" y="-795.2" font-family="Arial" font-size="16.00">Structures</text>
+</g>
+<!-- CS120&#45;&gt;CS124 -->
+<g id="edge2" class="edge">
+<title>CS120&#45;&gt;CS124</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="5,2" d="M247.46,-914.87C261.18,-897.84 276.7,-878.57 290.1,-861.95"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="292.94,-864 296.49,-854.02 287.49,-859.61 292.94,-864"/>
+<text text-anchor="middle" x="316.09" y="-887.4" font-family="Arial" font-size="12.00"> prereq or parallel</text>
+<polyline fill="none" stroke="black" points="362.09,-884 270.09,-884 286.6,-866.29 "/>
+</g>
+<!-- DANA320 -->
+<g id="node25" class="node">
+<title>DANA320</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="270.09,-330 174.09,-330 174.09,-262 270.09,-262 270.09,-330"/>
+<text text-anchor="start" x="184.09" y="-314.2" font-family="Arial" font-weight="bold" font-size="16.00">DANA 320</text>
+<text text-anchor="start" x="205.09" y="-289.2" font-family="Arial" font-size="16.00">Data</text>
+<text text-anchor="start" x="178.09" y="-271.2" font-family="Arial" font-size="16.00">Visualization</text>
+</g>
+<!-- CS120&#45;&gt;DANA320 -->
+<g id="edge21" class="edge">
+<title>CS120&#45;&gt;DANA320</title>
+<path fill="none" stroke="black" stroke-width="2" d="M157.89,-947.84C115.86,-935.12 59.97,-910.6 33.09,-866 11.98,-830.98 32.49,-814.88 33.09,-774 35.76,-593.05 -49.72,-521.14 45.09,-367 69.88,-326.7 122.32,-309.58 163.72,-302.32"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="164.39,-305.76 173.71,-300.72 163.28,-298.85 164.39,-305.76"/>
+</g>
+<!-- HIST150 -->
+<g id="node2" class="node">
+<title>HIST150</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="604.59,-995 511.59,-995 511.59,-927 604.59,-927 604.59,-995"/>
+<text text-anchor="start" x="525.09" y="-979.2" font-family="Arial" font-weight="bold" font-size="16.00">HIST 150</text>
+<text text-anchor="start" x="516.09" y="-954.2" font-family="Arial" font-size="16.00">The West in</text>
+<text text-anchor="start" x="524.59" y="-936.2" font-family="Arial" font-size="16.00">the World</text>
+</g>
+<!-- UCCPFW -->
+<g id="node3" class="node">
+<title>UCCPFW</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="769.59,-993 622.59,-993 622.59,-929 769.59,-929 769.59,-993"/>
+<text text-anchor="start" x="664.59" y="-977.2" font-family="Arial" font-weight="bold" font-size="16.00">Physcial</text>
+<text text-anchor="start" x="627.09" y="-961.2" font-family="Arial" font-weight="bold" font-size="16.00">Fitness / Wellness</text>
+<text text-anchor="start" x="647.59" y="-939.2" font-family="Arial" font-style="italic" font-size="16.00">2 credit hours</text>
+</g>
+<!-- ENG103 -->
+<g id="node4" class="node">
+<title>ENG103</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="493.59,-986 356.59,-986 356.59,-936 493.59,-936 493.59,-986"/>
+<text text-anchor="start" x="393.09" y="-970.2" font-family="Arial" font-weight="bold" font-size="16.00">ENG 103</text>
+<text text-anchor="start" x="361.09" y="-945.2" font-family="Arial" font-size="16.00">Rhetoric &amp; Writing</text>
+</g>
+<!-- ENG104 -->
+<g id="node7" class="node">
+<title>ENG104</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="468.59,-861 381.59,-861 381.59,-779 468.59,-779 468.59,-861"/>
+<text text-anchor="start" x="393.09" y="-845.2" font-family="Arial" font-weight="bold" font-size="16.00">ENG 104</text>
+<text text-anchor="start" x="402.09" y="-829.2" font-family="Arial" font-size="16.00">or </text>
+<text text-anchor="start" x="421.09" y="-829.2" font-family="Arial" font-weight="bold" font-size="16.00">114</text>
+<text text-anchor="start" x="386.09" y="-806.2" font-family="Arial" font-size="16.00">Composing</text>
+<text text-anchor="start" x="391.09" y="-788.2" font-family="Arial" font-size="16.00">Research</text>
+</g>
+<!-- ENG103&#45;&gt;ENG104 -->
+<g id="edge9" class="edge">
+<title>ENG103&#45;&gt;ENG104</title>
+<path fill="none" stroke="black" stroke-width="2" d="M425.09,-935.79C425.09,-918.06 425.09,-893.37 425.09,-871.43"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="428.59,-871.25 425.09,-861.25 421.59,-871.25 428.59,-871.25"/>
+</g>
+<!-- CS222 -->
+<g id="node11" class="node">
+<title>CS222</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="463.09,-725 351.09,-725 351.09,-657 463.09,-657 463.09,-725"/>
+<text text-anchor="start" x="380.09" y="-709.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 222</text>
+<text text-anchor="start" x="372.09" y="-684.2" font-family="Arial" font-size="16.00">Advanced</text>
+<text text-anchor="start" x="361.09" y="-666.2" font-family="Arial" font-size="16.00">Programming</text>
+</g>
+<!-- CS121&#45;&gt;CS222 -->
+<g id="edge7" class="edge">
+<title>CS121&#45;&gt;CS222:cs222_top</title>
+<path fill="none" stroke="black" stroke-width="2" d="M264.09,-779.71C267.42,-777.69 270.77,-775.77 274.09,-774 286.01,-767.64 374.87,-747.13 400.31,-731.44"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="402.94,-733.75 407.09,-724 397.77,-729.03 402.94,-733.75"/>
+</g>
+<!-- CS224 -->
+<g id="node12" class="node">
+<title>CS224</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="294.59,-716 201.59,-716 201.59,-666 294.59,-666 294.59,-716"/>
+<text text-anchor="start" x="221.59" y="-700.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 224</text>
+<text text-anchor="start" x="212.09" y="-675.2" font-family="Arial" font-size="16.00">Algorithms</text>
+</g>
+<!-- CS121&#45;&gt;CS224 -->
+<g id="edge4" class="edge">
+<title>CS121&#45;&gt;CS224:cs224_top</title>
+<path fill="none" stroke="black" stroke-width="2" d="M235.27,-773.95C241.47,-759.17 246.88,-742.22 248.56,-725.42"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="252.08,-725.17 249.09,-715 245.08,-724.81 252.08,-725.17"/>
+</g>
+<!-- CS230 -->
+<g id="node16" class="node">
+<title>CS230</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="274.59,-594 163.59,-594 163.59,-508 274.59,-508 274.59,-594"/>
+<text text-anchor="start" x="192.59" y="-578.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 230</text>
+<text text-anchor="start" x="185.59" y="-553.2" font-family="Arial" font-size="16.00">Computer</text>
+<text text-anchor="start" x="168.09" y="-535.2" font-family="Arial" font-size="16.00">Organization &amp;</text>
+<text text-anchor="start" x="177.09" y="-517.2" font-family="Arial" font-size="16.00">Architecture</text>
+</g>
+<!-- CS121&#45;&gt;CS230 -->
+<g id="edge3" class="edge">
+<title>CS121&#45;&gt;CS230</title>
+<path fill="none" stroke="black" stroke-width="2" d="M200.65,-773.83C197.57,-758.43 194.62,-741.05 193.09,-725 190.24,-694.91 189.43,-687 193.09,-657 195.21,-639.63 199.23,-621 203.49,-604.32"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="206.99,-604.78 206.15,-594.22 200.22,-603 206.99,-604.78"/>
+</g>
+<!-- CS421 -->
+<g id="node27" class="node">
+<title>CS421</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="367.09,-435 295.09,-435 295.09,-367 367.09,-367 367.09,-435"/>
+<text text-anchor="start" x="304.09" y="-419.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 421</text>
+<text text-anchor="start" x="314.09" y="-394.2" font-family="Arial" font-size="16.00">Data</text>
+<text text-anchor="start" x="299.09" y="-376.2" font-family="Arial" font-size="16.00">Analytics</text>
+</g>
+<!-- CS121&#45;&gt;CS421 -->
+<g id="edge24" class="edge">
+<title>CS121&#45;&gt;CS421</title>
+<path fill="none" stroke="black" stroke-width="2" d="M183.36,-773.76C145.57,-705.68 89.66,-576.3 155.09,-496 192.65,-449.92 236.74,-502.14 286.09,-469 295.72,-462.54 303.83,-453.25 310.39,-443.64"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="313.35,-445.5 315.76,-435.18 307.44,-441.75 313.35,-445.5"/>
+</g>
+<!-- CS455 -->
+<g id="node28" class="node">
+<title>CS455</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="149.09,-435 87.09,-435 87.09,-367 149.09,-367 149.09,-435"/>
+<text text-anchor="start" x="91.09" y="-419.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 455</text>
+<text text-anchor="start" x="101.09" y="-394.2" font-family="Arial" font-size="16.00">Data</text>
+<text text-anchor="start" x="95.09" y="-376.2" font-family="Arial" font-size="16.00">Mining</text>
+</g>
+<!-- CS121&#45;&gt;CS455 -->
+<g id="edge25" class="edge">
+<title>CS121&#45;&gt;CS455</title>
+<path fill="none" stroke="black" stroke-width="2" d="M157.9,-780.82C154.59,-778.5 151.3,-776.21 148.09,-774 136.22,-765.81 127.95,-768.69 121.09,-756 66.84,-655.64 89.68,-514.71 106.35,-444.8"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="109.76,-445.56 108.75,-435.01 102.97,-443.89 109.76,-445.56"/>
+</g>
+<!-- CS124&#45;&gt;CS222 -->
+<g id="edge8" class="edge">
+<title>CS124&#45;&gt;CS222:cs222_top</title>
+<path fill="none" stroke="black" stroke-width="2" d="M356.29,-785.9C374.08,-767.64 394.08,-746.12 402.73,-733.27"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="406,-734.54 407.09,-724 399.67,-731.56 406,-734.54"/>
+</g>
+<!-- CS124&#45;&gt;CS224 -->
+<g id="edge5" class="edge">
+<title>CS124&#45;&gt;CS224:cs224_top</title>
+<path fill="none" stroke="black" stroke-width="2" d="M292.99,-785.86C276.19,-766.18 257.41,-741.84 251.21,-724.92"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="254.6,-724.05 249.09,-715 247.75,-725.51 254.6,-724.05"/>
+</g>
+<!-- CS124&#45;&gt;CS230 -->
+<g id="edge6" class="edge">
+<title>CS124&#45;&gt;CS230</title>
+<path fill="none" stroke="black" stroke-width="2" d="M324.5,-785.99C324.74,-752.26 321.79,-699.02 304.09,-657 295.76,-637.22 282.52,-618.16 268.95,-601.84"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="271.44,-599.37 262.28,-594.05 266.13,-603.92 271.44,-599.37"/>
+</g>
+<!-- ENG104&#45;&gt;CS222 -->
+<g id="edge10" class="edge">
+<title>ENG104&#45;&gt;CS222</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="5,2" d="M419.4,-778.82C417.42,-764.9 415.21,-749.25 413.2,-735.1"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="416.66,-734.53 411.79,-725.12 409.72,-735.51 416.66,-734.53"/>
+<text text-anchor="middle" x="462.09" y="-746.4" font-family="Arial" font-size="12.00"> prereq or parallel</text>
+<polyline fill="none" stroke="black" points="508.09,-743 416.09,-743 416.21,-756.35 "/>
+</g>
+<!-- UCCT1NS -->
+<g id="node8" class="node">
+<title>UCCT1NS</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="851.09,-864 725.09,-864 725.09,-776 851.09,-776 851.09,-864"/>
+<text text-anchor="start" x="766.59" y="-848.2" font-family="Arial" font-weight="bold" font-size="16.00">Tier 1</text>
+<text text-anchor="start" x="729.09" y="-832.2" font-family="Arial" font-weight="bold" font-size="16.00">Natural Science</text>
+<text text-anchor="start" x="730.09" y="-810.2" font-family="Arial" font-style="italic" font-size="16.00">CS Lab Science</text>
+<text text-anchor="start" x="730.09" y="-786.2" font-family="Arial" font-style="italic" font-size="16.00">3–5 credit hours</text>
+</g>
+<!-- UCCT2NSS -->
+<g id="node19" class="node">
+<title>UCCT2NSS</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="896.59,-579 765.59,-579 765.59,-523 896.59,-523 896.59,-579"/>
+<text text-anchor="start" x="810.09" y="-563.2" font-family="Arial" font-weight="bold" font-size="16.00">Tier 2</text>
+<text text-anchor="start" x="794.59" y="-547.2" font-family="Arial" font-weight="bold" font-size="16.00">Natural or</text>
+<text text-anchor="start" x="776.09" y="-531.2" font-family="Arial" font-weight="bold" font-size="16.00">Social Science</text>
+</g>
+<!-- UCCT1NS&#45;&gt;UCCT2NSS -->
+<g id="edge14" class="edge">
+<title>UCCT1NS&#45;&gt;UCCT2NSS:ucct2nss_top</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="1,5" d="M791.4,-775.69C794.4,-742.87 799.66,-696.78 808.09,-657 814.93,-624.75 828.85,-616.3 831.61,-588.31"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="835.12,-588.15 832.09,-578 828.13,-587.83 835.12,-588.15"/>
+</g>
+<!-- UCCPFIN -->
+<g id="node9" class="node">
+<title>UCCPFIN</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="967.09,-852 869.09,-852 869.09,-788 967.09,-788 967.09,-852"/>
+<text text-anchor="start" x="884.59" y="-836.2" font-family="Arial" font-weight="bold" font-size="16.00">Personal</text>
+<text text-anchor="start" x="887.59" y="-820.2" font-family="Arial" font-weight="bold" font-size="16.00">Finance</text>
+<text text-anchor="start" x="873.09" y="-798.2" font-family="Arial" font-style="italic" font-size="16.00">1 credit hour</text>
+</g>
+<!-- MATH181 -->
+<g id="node10" class="node">
+<title>MATH181</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="139.59,-863 42.59,-863 42.59,-777 139.59,-777 139.59,-863"/>
+<text text-anchor="start" x="53.59" y="-847.2" font-family="Arial" font-weight="bold" font-size="16.00">MATH 181</text>
+<text text-anchor="start" x="52.09" y="-822.2" font-family="Arial" font-size="16.00">Elementary</text>
+<text text-anchor="start" x="47.09" y="-804.2" font-family="Arial" font-size="16.00">Probability &amp;</text>
+<text text-anchor="start" x="58.59" y="-786.2" font-family="Arial" font-size="16.00">Statistics</text>
+</g>
+<!-- MATH181&#45;&gt;DANA320 -->
+<g id="edge22" class="edge">
+<title>MATH181&#45;&gt;DANA320</title>
+<path fill="none" stroke="black" stroke-width="2" d="M74.91,-776.75C66.97,-752.36 59.09,-720.88 59.09,-692 59.09,-692 59.09,-692 59.09,-400 59.09,-348.75 117.4,-321.96 164.27,-308.7"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="165.32,-312.04 174.07,-306.08 163.5,-305.28 165.32,-312.04"/>
+</g>
+<!-- CS239 -->
+<g id="node17" class="node">
+<title>CS239</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="429.09,-606 331.09,-606 331.09,-496 429.09,-496 429.09,-606"/>
+<text text-anchor="start" x="353.09" y="-590.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 239</text>
+<text text-anchor="start" x="350.59" y="-565.2" font-family="Arial" font-size="16.00">Social &amp;</text>
+<text text-anchor="start" x="336.09" y="-547.2" font-family="Arial" font-size="16.00">Professional</text>
+<text text-anchor="start" x="356.59" y="-529.2" font-family="Arial" font-size="16.00">Issues</text>
+<text text-anchor="start" x="335.09" y="-506.2" font-family="Arial" font-style="italic" font-size="16.00">1 credit hour</text>
+</g>
+<!-- CS222&#45;&gt;CS239 -->
+<g id="edge11" class="edge">
+<title>CS222&#45;&gt;CS239</title>
+<path fill="none" stroke="black" stroke-width="2" d="M400.63,-656.95C398.23,-644.69 395.42,-630.34 392.66,-616.25"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="396.03,-615.21 390.67,-606.07 389.16,-616.55 396.03,-615.21"/>
+</g>
+<!-- CS495 -->
+<g id="node22" class="node">
+<title>CS495</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="615.09,-201 443.09,-201 443.09,-127 615.09,-127 615.09,-201"/>
+<text text-anchor="start" x="502.09" y="-185.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 495</text>
+<text text-anchor="start" x="447.09" y="-160.2" font-family="Arial" font-size="16.00">Software Engineering 1</text>
+<text text-anchor="start" x="468.09" y="-137.2" font-family="Arial" font-style="italic" font-size="16.00">BSU Core: Tier 3</text>
+</g>
+<!-- CS222&#45;&gt;CS495 -->
+<g id="edge16" class="edge">
+<title>CS222&#45;&gt;CS495</title>
+<path fill="none" stroke="black" stroke-width="2" d="M366.25,-656.85C350.71,-642.54 333.92,-624.79 322.09,-606 294.53,-562.23 324.2,-528.66 284.09,-496 247.78,-466.43 113.96,-495.13 75.09,-469 23.9,-434.58 -11.91,-406.69 7.09,-348 22.98,-298.94 31.66,-281.78 75.09,-254 133.14,-216.87 317.3,-189.53 432.46,-175.54"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="433.19,-178.98 442.7,-174.31 432.35,-172.03 433.19,-178.98"/>
+</g>
+<!-- CS418 -->
+<g id="node26" class="node">
+<title>CS418</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="462.59,-435 385.59,-435 385.59,-367 462.59,-367 462.59,-435"/>
+<text text-anchor="start" x="397.59" y="-419.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 418</text>
+<text text-anchor="start" x="390.09" y="-394.2" font-family="Arial" font-size="16.00">Database</text>
+<text text-anchor="start" x="400.09" y="-376.2" font-family="Arial" font-size="16.00">Design</text>
+</g>
+<!-- CS222&#45;&gt;CS418 -->
+<g id="edge26" class="edge">
+<title>CS222&#45;&gt;CS418</title>
+<path fill="none" stroke="black" stroke-width="2" d="M422.41,-656.84C428.6,-641.68 435,-623.29 438.09,-606 447.91,-551.07 440.39,-486.69 433.13,-445.17"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="436.53,-444.34 431.3,-435.13 429.65,-445.59 436.53,-444.34"/>
+</g>
+<!-- UCCT1SS -->
+<g id="node13" class="node">
+<title>UCCT1SS</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="935.59,-711 816.59,-711 816.59,-671 935.59,-671 935.59,-711"/>
+<text text-anchor="start" x="855.09" y="-695.2" font-family="Arial" font-weight="bold" font-size="16.00">Tier 1</text>
+<text text-anchor="start" x="821.09" y="-679.2" font-family="Arial" font-weight="bold" font-size="16.00">Social Science</text>
+</g>
+<!-- UCCT1SS&#45;&gt;UCCT2NSS -->
+<g id="edge15" class="edge">
+<title>UCCT1SS&#45;&gt;UCCT2NSS:ucct2nss_top</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="1,5" d="M863.37,-670.67C851.64,-651.15 835.61,-619.47 832.59,-588.14"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="836.08,-587.82 832.09,-578 829.09,-588.16 836.08,-587.82"/>
+<text text-anchor="middle" x="856.59" y="-627.8" font-family="Arial" font-size="14.00"> &#160;or</text>
+<polyline fill="none" stroke="black" points="867.09,-624 846.09,-624 845.54,-635.83 "/>
+</g>
+<!-- UCCT1HU -->
+<g id="node14" class="node">
+<title>UCCT1HU</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="1046.59,-711 953.59,-711 953.59,-671 1046.59,-671 1046.59,-711"/>
+<text text-anchor="start" x="979.09" y="-695.2" font-family="Arial" font-weight="bold" font-size="16.00">Tier 1</text>
+<text text-anchor="start" x="958.09" y="-679.2" font-family="Arial" font-weight="bold" font-size="16.00">Humanities</text>
+</g>
+<!-- UCCT2FDH -->
+<g id="node21" class="node">
+<title>UCCT2FDH</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="1146.09,-579 964.09,-579 964.09,-523 1146.09,-523 1146.09,-579"/>
+<text text-anchor="start" x="1033.59" y="-563.2" font-family="Arial" font-weight="bold" font-size="16.00">Tier 2</text>
+<text text-anchor="start" x="1010.59" y="-547.2" font-family="Arial" font-weight="bold" font-size="16.00">Fine Arts or</text>
+<text text-anchor="start" x="974.09" y="-531.2" font-family="Arial" font-weight="bold" font-size="16.00">Design or Humanities</text>
+</g>
+<!-- UCCT1HU&#45;&gt;UCCT2FDH -->
+<g id="edge13" class="edge">
+<title>UCCT1HU&#45;&gt;UCCT2FDH:ucct2fdh_top</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="1,5" d="M1016.3,-670.77C1031,-651.49 1050.92,-620.14 1054.52,-587.99"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="1058.02,-588.18 1055.09,-578 1051.03,-587.78 1058.02,-588.18"/>
+</g>
+<!-- UCCT1FA -->
+<g id="node15" class="node">
+<title>UCCT1FA</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="1141.59,-711 1064.59,-711 1064.59,-671 1141.59,-671 1141.59,-711"/>
+<text text-anchor="start" x="1082.09" y="-695.2" font-family="Arial" font-weight="bold" font-size="16.00">Tier 1</text>
+<text text-anchor="start" x="1069.09" y="-679.2" font-family="Arial" font-weight="bold" font-size="16.00">Fine Arts</text>
+</g>
+<!-- UCCT1FA&#45;&gt;UCCT2FDH -->
+<g id="edge12" class="edge">
+<title>UCCT1FA&#45;&gt;UCCT2FDH:ucct2fdh_top</title>
+<path fill="none" stroke="black" stroke-width="2" stroke-dasharray="1,5" d="M1089.21,-670.84C1076.42,-651.44 1058.93,-619.88 1055.64,-588.25"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="1059.12,-587.8 1055.09,-578 1052.13,-588.17 1059.12,-587.8"/>
+<text text-anchor="middle" x="1080.59" y="-627.8" font-family="Arial" font-size="14.00"> &#160;or</text>
+<polyline fill="none" stroke="black" points="1091.09,-624 1070.09,-624 1069.77,-636.13 "/>
+</g>
+<!-- CS239&#45;&gt;CS495 -->
+<!-- DANA100 -->
+<g id="node24" class="node">
+<title>DANA100</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="277.09,-435 167.09,-435 167.09,-367 277.09,-367 277.09,-435"/>
+<text text-anchor="start" x="184.09" y="-419.2" font-family="Arial" font-weight="bold" font-size="16.00">DANA 100</text>
+<text text-anchor="start" x="172.09" y="-394.2" font-family="Arial" font-size="16.00">Introduction to</text>
+<text text-anchor="start" x="171.09" y="-376.2" font-family="Arial" font-size="16.00">Data Analytics</text>
+</g>
+<!-- CS239&#45;&gt;DANA100 -->
+<!-- CS239&#45;&gt;DANA320 -->
+<!-- CS239&#45;&gt;CS418 -->
+<!-- CS239&#45;&gt;CS421 -->
+<!-- CS239&#45;&gt;CS455 -->
+<!-- COMM210 -->
+<g id="node18" class="node">
+<title>COMM210</title>
+<polygon fill="none" stroke="red" stroke-width="2" points="747.59,-585 658.59,-585 658.59,-517 747.59,-517 747.59,-585"/>
+<text text-anchor="start" x="663.09" y="-569.2" font-family="Arial" font-weight="bold" font-size="16.00">COMM 210</text>
+<text text-anchor="start" x="682.09" y="-544.2" font-family="Arial" font-size="16.00">Public</text>
+<text text-anchor="start" x="671.09" y="-526.2" font-family="Arial" font-size="16.00">Speaking</text>
+</g>
+<!-- COMM210&#45;&gt;CS495 -->
+<g id="edge19" class="edge">
+<title>COMM210&#45;&gt;CS495</title>
+<path fill="none" stroke="black" stroke-width="2" d="M710.44,-516.77C721.37,-458.59 735.53,-336.62 684.09,-254 669.91,-231.23 647.63,-213.68 624.34,-200.44"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="625.84,-197.27 615.38,-195.57 622.5,-203.42 625.84,-197.27"/>
+</g>
+<!-- Permission -->
+<g id="node20" class="node">
+<title>Permission</title>
+<ellipse fill="none" stroke="blue" stroke-width="2" cx="616.09" cy="-296" rx="58.88" ry="25.41"/>
+<text text-anchor="middle" x="616.09" y="-301.2" font-family="Arial" font-size="16.00">Permission:</text>
+<text text-anchor="middle" x="616.09" y="-283.2" font-family="Arial" font-size="16.00">Final Year</text>
+</g>
+<!-- Permission&#45;&gt;CS495 -->
+<g id="edge18" class="edge">
+<title>Permission&#45;&gt;CS495</title>
+<path fill="none" stroke="black" stroke-width="2" d="M600.34,-271.46C588.8,-254.22 572.8,-230.31 558.89,-209.52"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="561.74,-207.49 553.27,-201.13 555.92,-211.39 561.74,-207.49"/>
+</g>
+<!-- CS498 -->
+<g id="node23" class="node">
+<title>CS498</title>
+<polygon fill="none" stroke="blue" stroke-width="2" points="632.59,-90 425.59,-90 425.59,-16 632.59,-16 632.59,-90"/>
+<text text-anchor="start" x="502.59" y="-74.2" font-family="Arial" font-weight="bold" font-size="16.00">CS 498</text>
+<text text-anchor="start" x="447.59" y="-49.2" font-family="Arial" font-size="16.00">Software Engineering 2</text>
+<text text-anchor="start" x="430.09" y="-26.2" font-family="Arial" font-style="italic" font-size="16.00">BSU Core: Writing Intensive</text>
+</g>
+<!-- CS495&#45;&gt;CS498 -->
+<g id="edge20" class="edge">
+<title>CS495&#45;&gt;CS498</title>
+<path fill="none" stroke="black" stroke-width="2" d="M529.09,-126.7C529.09,-118.25 529.09,-109.13 529.09,-100.3"/>
+<polygon fill="black" stroke="black" stroke-width="2" points="532.59,-100.14 529.09,-90.14 525.59,-100.14 532.59,-100.14"/>
+</g>
+<!-- DANA100&#45;&gt;DANA320 -->
+<!-- DANA320&#45;&gt;CS495 -->
+</g>
+</svg>
+
+
+</body>
+</html>
